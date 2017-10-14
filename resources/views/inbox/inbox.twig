@@ -1,0 +1,86 @@
+{% extends 'templates/app.twig' %}
+
+{% block pageTitle %}Inbox{% endblock %}
+
+{% block content %}
+
+    <h1>Inbox</h1>
+    {% if questions is empty %}
+        <h3>:( Nothing here yet.</h3>
+    {% endif %}
+
+    <div class="row">
+
+        <div class="col-lg-3 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Inbox</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sent</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            {% for question in questions %}
+                {% include 'templates/question/question_request.twig' %}
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+    <div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reply</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ path_for('inbox.reply') }}" method="post" autocomplete="off" class="reply-form">
+                    <div class="modal-body">
+                        <p class="question-text muted"></p>
+                        <div class="form-group">
+                            <textarea class="form-control" id="reply" name="reply" placeholder="Your reply" autofocus></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-success" data-submit-value="Answering...">Answer</button>
+                        <input type="hidden" name="qid" id="qid-input">
+                        {{ csrf.field | raw }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#replyModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var qid = button.data('qid');
+                var qtext = button.data('qtext');
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this);
+                modal.find('.modal-body .question-text').text(qtext);
+                modal.find('.modal-footer #qid-input').val(qid);
+            });
+            $('.reply-form').on('submit', function() {
+                var self = $(this),
+                    button = self.find('input[type="submit"], button[type="submit"]'),
+                    submitValue = button.data('submit-value');
+
+                button.attr('disabled', 'disabled').text((submitValue) ? submitValue : 'Please Wait...');
+            });
+        });
+    </script>
+{% endblock %}

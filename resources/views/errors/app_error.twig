@@ -1,0 +1,29 @@
+{% extends 'templates/app.twig' %}
+
+{% block pageTitle %}General Error{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col-md-6 mx-auto text-center">
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Woops</h3>
+                    <h5 class="text-muted">An unexpected error happened.</h5>
+                </div>
+                <div class="card-body">
+                    <p>If the problem continues, please contact us and provide us the following error message:</p>
+                    <p class="text-muted">"{{ error }}"</p>
+
+                    <hr>
+                    <a href="javascript:history.back(1)">Go Back</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

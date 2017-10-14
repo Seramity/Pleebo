@@ -1,0 +1,38 @@
+<div class="col-md-3">
+    <div class="card" style="margin-bottom: 1rem;">
+        <div class="card-body">
+
+            {{ auth.user.getAvatar({size : 50}) | raw }}
+            <h3>My Account</h3>
+            <hr>
+
+            <ul class="nav flex-column">
+                <h6 class="text-muted">Profile</h6>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path_for('account.profile') }}">Profile Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path_for('account.picture') }}">Profile Picture</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Privacy Settings</a>
+                </li>
+            </ul>
+
+            <ul class="nav flex-column">
+                <h6 class="text-muted">Account</h6>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Account Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path_for('account.password') }}">Change Password</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path_for('account.delete') }}">Delete Account</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>

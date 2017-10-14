@@ -1,0 +1,127 @@
+{% extends 'templates/app.twig' %}
+
+{% block pageTitle %}Profile Settings{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+
+        {% include 'account/partials/sidenav.twig' %}
+
+        <div class="col-md-9">
+
+            <div class="card">
+
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3>Profile Settings</h3>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a href="{{ path_for('userProfile', {user : auth.user.username}) }}"><button class="btn btn-outline-primary">View Profile</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <form action="{{ path_for('account.profile') }}" method="post" autocomplete="off" class="profile-settings-form">
+
+                    <div class="card-body">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <h4 class="text-muted">Info</h4>
+                                <hr>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="username">Username</label>
+                                    <input type="text" class="form-control{% if errors.username %} error{% endif %}" id="username" name="username" value="{% if old_input.username %}{{ old_input.username }}{% else %}{{ auth.user.username }}{% endif %}" aria-describedby="usernameHelp" placeholder="Enter a username">
+                                    {% if errors.username %} <div class="form_errors">{{ errors.username | first }}</div> {% endif %}
+                                    <small id="usernameHelp" class="form-text text-muted">Must be 3-{{ auth.user.MAX_USERNAME_CHAR }} characters long.</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="email">Email</label>
+                                    <input type="email" class="form-control{% if errors.email %} error{% endif %}" id="email" name="email" value="{% if old_input.email %}{{ old_input.email }}{% else %}{{ auth.user.email }}{% endif %}" aria-describedby="emailHelp" placeholder="Enter an email">
+                                    {% if errors.email %} <div class="form_errors">{{ errors.email | first }}</div> {% endif %}
+                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="name">Name</label>
+                                    <input type="text" class="form-control{% if errors.name %} error{% endif %}" id="name" name="name" value="{% if old_input.name %}{{ old_input.name }}{% else %}{{ auth.user.name }}{% endif %}" placeholder="Enter your name">
+                                    {% if errors.name %} <div class="form_errors">{{ errors.name | first }}</div> {% endif %}
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="bio">Bio</label>
+                                    <textarea class="form-control{% if errors.bio %} error{% endif %}" id="bio" name="bio" rows="5" placeholder="A few words about yourself.">{% if old_input.bio %}{{ old_input.bio }}{% else %}{{ auth.user.bio }}{% endif %}</textarea>
+                                    {% if errors.bio %} <div class="form_errors">{{ errors.bio | first }}</div> {% endif %}
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="text-muted">Design</h4>
+                                <hr>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="bgcolor">Background color</label>
+                                    <input class="jscolor form-control{% if errors.bgcolor %} error{% endif %}" id="bgcolor" name="bgcolor" value="{% if old_input.bgcolor %}{{ old_input.bgcolor }}{% else %}{{ auth.user.bgcolor }}{% endif %}" aria-describedby="bgcolorHelp">
+                                    {% if errors.bgcolor%} <div class="form_errors">{{ errors.bgcolor | first }}</div> {% endif %}
+                                    <small id="bgcolorHelp" class="form-text text-muted">Changes the background color on your profile.</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="boxcolor">Box colors</label>
+                                    <input class="jscolor form-control{% if errors.boxcolor %} error{% endif %}" id="boxcolor" name="boxcolor" value="{% if old_input.boxcolor %}{{ old_input.boxcolor }}{% else %}{{ auth.user.boxcolor }}{% endif %}" aria-describedby="boxcolorHelp">
+                                    {% if errors.boxcolor %} <div class="form_errors">{{ errors.boxcolor | first }}</div> {% endif %}
+                                    <small id="boxcolorHelp" class="form-text text-muted">Changes the background colors of the boxes on your profile (profile sidebar, questions, etc).</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="textcolor">Text color</label>
+                                    <input class="jscolor form-control{% if errors.textcolor %} error{% endif %}" id="textcolor" name="textcolor" value="{% if old_input.bgcolor %}{{ old_input.bgcolor }}{% else %}{{ auth.user.bio }}{% endif %}" aria-describedby="textcolorHelp">
+                                    {% if errors.textcolor %} <div class="form_errors">{{ errors.textcolor | first }}</div> {% endif %}
+                                    <small id="textcolorHelp" class="form-text text-muted">Changes the text color on your profile.</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label" for="questionPlaceholder">Question Placeholder</label>
+                                    <textarea class="form-control no-resize{% if errors.bio %} error{% endif %}" id="questionPlaceholder" name="questionPlaceholder" placeholder="Ask me anything">{% if old_input.questionPlaceholder %}{{ old_input.questionPlaceholder }}{% else %}{# add user field first #}{% endif %}</textarea>
+                                    {% if errors.textcolor %} <div class="form_errors">{{ errors.textcolor | first }}</div> {% endif %}
+                                    <small id="questionPlaceholderHelp" class="form-text text-muted">Changes the placeholder of your question field on your profile.</small>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-outline-success" data-submit-value="Updating...">Update</button>
+
+                        {{ csrf.field | raw }}
+                    </div>
+
+                </form>
+
+            </div>
+
+
+
+        </div>
+
+
+    <script type="text/javascript">
+        $('.profile-settings-form').on('submit', function() {
+            var self = $(this),
+                button = self.find('input[type="submit"], button[type="submit"]'),
+                submitValue = button.data('submit-value');
+
+            button.attr('disabled', 'disabled').text((submitValue) ? submitValue : 'Please Wait...');
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+<footer class="footer">
+    <div class="container">
+        <h3 class="text-muted">
+            {{ app.name }}
+            <a href="https://github.com/Seramity/Listreme" target="_blank">{{ app.version }}</a>
+        </h3>
+
+        <div class="text-muted">
+            <a href="{{ path_for('page.about') }}">About</a> ·
+            <a href="#">Contact</a> ·
+            <a href="#">Help</a> ·
+            <a href="{{ path_for('page.guidelines') }}">Guidelines</a> ·
+            <a href="{{ path_for('page.terms') }}">Terms</a> ·
+            <a href="{{ path_for('page.privacy') }}">Privacy</a>
+        </div>
+    </div>
+</footer>

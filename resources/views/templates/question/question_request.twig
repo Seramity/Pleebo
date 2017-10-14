@@ -1,0 +1,43 @@
+<div class="card question mb-3">
+    <div class="card-body">
+
+        <div class="row">
+            {% if not question.anonymous %}
+                <div class="col-1">
+                    <a href="{{ path_for('userProfile', {user: question.sender().username}) }}">{{ question.sender().getAvatar({size : 55}) | raw }}</a>
+                </div>
+
+                <div class="col-11">
+                    <a href="{{ path_for('userProfile', {user: question.sender().username}) }}" class="font-weight-bold">{{ question.sender().username }}</a> asked...
+                    <p>{{ question.text }}</p>
+                    <small class="text-muted" title="{{ question.timestamp('created_at') }}">{{ question.readableTime('created_at') }}</small>
+                </div>
+            {% else %}
+                <div class="col-1">
+                    <img id="user-avatar" src="{{ base_url }}assets/default_avatar.png" alt="Anonymous" width="55px">
+                </div>
+
+                <div class="col-11">
+                    <a href="#" class="font-weight-bold">Anonymous</a> asked...
+                    <p>{{ question.text }}</p>
+                    <small class="text-muted" title="{{ question.timestamp('created_at') }}">{{ question.readableTime('created_at') }}</small>
+                </div>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        <div class="row text-center">
+            <div class="col-4">
+                <span class="icon ion-reply button reply-button" title="Reply" data-toggle="modal" data-target="#replyModal" data-qid="{{ question.id }}" data-qtext="{{ question.text }}"></span>
+            </div>
+            <div class="col-4">
+                <span class="icon ion-trash-b button delete-button" title="Delete" onclick="confirmDeleteReceivedQuestion({{ question.id }});"></span>
+            </div>
+            <div class="col-4">
+                <span class="icon ion-android-cancel button block-button" title="Block user"></span>
+            </div>
+        </div>
+
+    </div>
+</div>

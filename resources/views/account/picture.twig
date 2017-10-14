@@ -1,0 +1,128 @@
+{% extends 'templates/app.twig' %}
+
+{% block pageTitle %}Picture Settings{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+
+        {% include 'account/partials/sidenav.twig' %}
+
+        <div class="col-md-9">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3>Profile Picture</h3>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a href="{{ path_for('userProfile', {user : auth.user.username}) }}"><button class="btn btn-outline-primary">View Profile</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form action="{{ path_for('account.picture') }}" method="post" enctype="multipart/form-data" autocomplete="off" class="picture-settings-form">
+                                <h4 class="text-muted">Upload</h4>
+                                <hr>
+
+                                <div class="form-group">
+                                    <input type="file" class="form-control-file{% if errors.avatar %} error{% endif %}" id="avatar" name="avatar" accept="image/*" aria-describedby="avatarHelp" style="width:100%;">
+                                    {% if errors.avatar %} <div class="form_errors">{{ errors.avatar | first }}</div> {% endif %}
+                                    <small id="avatarHelp" class="form-text text-muted">Pick a image (.jpg, .png, .gif) under a size of 2MB.</small>
+                                    <small class="text-muted">(We suggest to upload a picture that is at least 500px x 500px)</small>
+                                </div>
+
+                                <button type="submit" class="btn btn-outline-success" data-submit-value="Uploading...">Upload</button>
+                                {{ csrf.field | raw }}
+                            </form>
+
+                            {% if auth.user.uploaded_avatar %}
+                                <form action="{{ path_for('account.picture.delete') }}" method="post" class="delete-picture-form">
+                                    <button type="submit" class="btn btn-outline-danger" data-submit-value="Deleting..." style="margin-top: 1rem;">Delete Picture</button>
+
+                                    {{ csrf.field | raw }}
+                                </form>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <h4 class="text-muted">Avatars</h4>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-xl-4">
+                                    {% if auth.user.uploaded_avatar %}
+                                        <img src="{{ base_url() }}/assets/uploads/avatars/{{ auth.user.uploaded_avatar }}" style="max-width:100%">
+                                    {% else %}
+                                        <img src="{{ base_url() }}/assets/default_avatar.png" style="max-width:100%">
+                                    {% endif %}
+                                    <h5>Custom Picture</h5>
+                                </div>
+                                <div class="col-xl-4">
+                                    <img src="http://www.gravatar.com/avatar/{{ md5_email }}?s=150&amp;d=identicon" style="max-width:100%">
+                                    <h5>Gravatar</h5>
+                                </div>
+                            </div>
+
+                            <form action="{{ path_for('account.picture.change') }}" method="post" class="change-settings-form">
+                                <div class="radio-buttons">
+                                    <label for="uploaded" class="control control--radio">Custom Avatar
+                                        <input type="radio" name="switch_avatar" id="uploaded" value="0" {% if not auth.user.gravatar %}checked{% endif %}/>
+                                        <div class="control__indicator"></div>
+                                    </label>
+
+                                    <label for="gravatar" class="control control--radio">Gravatar [<a href="http://gravatar.com" target="_blank" class="tooltip-bottom" data-toggle="tooltip" data-placement="top" title="A globally recognized avatar that can be used anywhere. Gravatars are determined by your email. (Click for more info)">?</a>]
+                                        <input type="radio" name="switch_avatar" id="gravatar" value="1" {% if auth.user.gravatar %}checked{% endif %}/>
+                                        <div class="control__indicator"></div>
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn btn-outline-success" data-submit-value="Updating...">Update</button>
+
+                                {{ csrf.field | raw }}
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript">
+        $('.picture-settings-form').on('submit', function() {
+            var self = $(this),
+                button = self.find('button[type="submit"]'),
+                submitValue = button.data('submit-value');
+
+            button.attr('disabled', 'disabled').text((submitValue) ? submitValue : 'Please Wait...');
+        });
+        $('.delete-picture-form').on('submit', function() {
+            var self = $(this),
+                button = self.find('button[type="submit"]'),
+                submitValue = button.data('submit-value');
+
+            button.attr('disabled', 'disabled').text((submitValue) ? submitValue : 'Please Wait...');
+        });
+        $('.change-settings-form').on('submit', function() {
+            var self = $(this),
+                button = self.find('button[type="submit"]'),
+                submitValue = button.data('submit-value');
+
+            button.attr('disabled', 'disabled').text((submitValue) ? submitValue : 'Please Wait...');
+        });
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+{% endblock %}

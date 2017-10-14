@@ -1,0 +1,85 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-3 profile-main">
+
+            <div class="card mb-3">
+
+                {% if auth.check and auth.user.id ==  user.id %}
+                    <a href="{{ path_for('account.picture') }}">
+                        <div class="avatar-container" data-content="Update Avatar">
+                            {{ user.getAvatar({size : 330, profile : true}) | raw }}
+                        </div>
+                    </a>
+                {% else %}
+                    {{ user.getAvatar({size : 330, profile : true}) | raw }}
+                {% endif %}
+
+                <div class="card-body">
+                    <h4 class="card-title">
+                        {{ user.username }}
+                        {% if user.isAdmin() %}<span class="badge badge-success" style="font-size: 0.6em;">Admin</span>{% endif %}
+                    </h4>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ user.name }}</h6>
+                    <p class="card-text">{{ user.bio }}</p>
+
+                    {% if auth.user.id == user.id %}
+                        <a href="{{ path_for('account.profile') }}" class="btn btn-outline-primary">Edit Profile</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card mb-3">
+
+                <form action="{{ path_for('question.new') }}" method="post" autocomplete="off" class="ask-form">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <textarea class="form-control no-resize{% if errors.question %} error{% endif %}" id="question" name="question" rows="3" placeholder="Ask me anything" required>{% if old_input.question %}{{ old_input.question }}{% endif %}</textarea>
+                            {% if errors.question %} <div class="form_errors">{{ errors.question | first }}</div> {% endif %}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="custom_checkbox">
+                                        <input type="checkbox" name="anonymous" id="anonymous">
+                                        <label for="anonymous" data-toggle="tooltip" data-placement="top" title="This user will not know who sent this question">Anonymous</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <input type="hidden" name="uid" value="{{ user.id }}">
+                                    <button type="submit" class="btn btn-outline-success float-right" data-submit-value="Sending...">Ask</button>
+                                    {{ csrf.field | raw }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+        {% block profile_content %}{% endblock %}
+
+        <script type="text/javascript">
+            $('.ask-form').on('submit', function() {
+                var self = $(this),
+                    button = self.find('input[type="submit"], button[type="submit"]'),
+                    submitValue = button.data('submit-value');
+
+                button.attr('disabled', 'disabled').text((submitValue) ? submitValue : 'Please Wait...');
+            });
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
+    </div>
+
+{% endblock %}

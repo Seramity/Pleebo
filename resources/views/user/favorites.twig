@@ -1,0 +1,21 @@
+{% extends 'templates/user/profile_template.twig' %}
+
+{% block pageTitle %}
+    {% if user.username ends with 's' %}
+        {{ user.username }}' Favorites
+    {% else %}
+        {{ user.username }}'s Favorites
+    {% endif %}
+{% endblock %}
+
+
+{% block profile_content %}
+
+    <div class="col-lg-9">
+
+        {% include 'user/partials/profile_nav.twig' %}
+
+
+    </div>
+
+{% endblock %}

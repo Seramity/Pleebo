@@ -1,0 +1,71 @@
+{% extends 'templates/app.twig' %}
+
+{% block pageTitle %}Sign in{% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col-md-8 mx-auto">
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Sign in</h2>
+                </div>
+
+                <form action="{{ path_for('auth.signin') }}" method="post" autocomplete="off" class="login-form">
+
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control{% if errors.username %} error{% endif %}" id="identifier" name="identifier" value="{{ old_input.identifier }}" placeholder="Email / Username">
+                            {% if errors.identifier %} <div class="form_errors">{{ errors.identifier | first }}</div> {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" class="form-control{% if errors.password %} error{% endif %}" id="password" name="password" placeholder="Password">
+                            {% if errors.username %} <div class="form_errors">{{ errors.password | first }}</div> {% endif %}
+                            <a href="{{ path_for('auth.recover') }}">Forgot my Password</a>
+                        </div>
+
+                        <div class="form-check">
+                            <div class="custom_checkbox">
+                                <input type="checkbox" name="remember" id="remember">
+                                <label for="remember">Remember me</label>
+                            </div>
+
+                        </div>
+
+                        {{ csrf.field | raw }}
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-outline-success" data-submit-value="Signing in...">Sign in</button>
+                            </div>
+                            <div class="col-6 text-right">
+                                <div class="text-muted">Don't have an account? <a href="{{ path_for('auth.signup') }}">Sign up!</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        $('.login-form').on('submit', function() {
+            var self = $(this),
+                button = self.find('button[type="submit"]'),
+                submitValue = button.data('submit-value');
+
+            button.attr('disabled', 'disabled').text((submitValue) ? submitValue : 'Please Wait...');
+        });
+    </script>
+{% endblock %}

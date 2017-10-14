@@ -1,0 +1,58 @@
+<nav class="navbar navbar-main navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="{{ path_for('home') }}"><span class="ion-chatbubble-working"></span> {{ app.name }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        {% if not auth.check %}
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path_for('auth.signin') }}"><span class="icon ion-log-in"></span> Log in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path_for('auth.signup') }}"><span class="icon ion-person-add"></span> Sign up</a>
+                    </li>
+                </ul>
+            </div>
+
+        {% else %}
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path_for('home') }}"><span class="icon ion-ios-analytics"></span> Feed</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path_for('explore') }}"><span class="icon ion-compass"></span> Explore</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path_for('inbox') }}">
+                            <span class="icon ion-android-mail"></span> Inbox
+                            {% if auth.user.countReceivedQuestions() %}
+                                <span class="badge badge-pill badge-primary">{{ auth.user.countReceivedQuestions() }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav my-2 my-md-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ auth.user.getAvatar({size : 35}) | raw }}
+                            {{ auth.user.username }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" href="{{ path_for('userProfile', {user: auth.user.username}) }}"><span class="icon ion-person"></span> Profile</a>
+                            <a class="dropdown-item" href="{{ path_for('account.profile') }}"><span class="icon ion-gear-a"></span> Account Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path_for('auth.signout') }}"><span class="icon ion-log-out"></span> Sign out</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        {% endif %}
+    </div>
+</nav>

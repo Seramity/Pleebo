@@ -1,0 +1,14 @@
+{% extends 'templates/app.twig' %}
+
+{% block pageTitle %}Home{% endblock %}
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-body">
+            <h1>Hello, {{ auth.user.username }}</h1>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% if paginator.hasPages %}
+
+    <div class="row">
+        <div class="col-12">
+            {# PREVIOUS PAGE #}
+            {% if not paginator.onFirstPage %}
+                <a class="btn btn-outline-primary" href="{{ paginator.previousPageUrl }}">Prev</a>
+            {% endif %}
+
+            {# NEXT PAGE #}
+            {% if paginator.hasMorePages %}
+                <a class="btn btn-outline-primary float-right" href="{{ paginator.nextPageUrl }}">Next</a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endif %}

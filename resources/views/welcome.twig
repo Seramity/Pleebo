@@ -1,0 +1,105 @@
+{% extends 'templates/app.twig' %}
+
+{% block pageTitle %}Welcome{% endblock %}
+
+{% block content %}
+
+    <div class="jumbotron text-center">
+        <div class="container">
+            <img src="{{ base_url() }}/assets/favicon.png" style="width:80px;">
+            <h1 class="display-4">Welcome to {{ app.name }}</h1>
+            <p class="lead">Social Q&A made simple</p>
+            <hr class="my-4">
+            <p class="lead">
+                <a class="btn btn-outline-primary btn-lg" href="{{ path_for('auth.signup') }}" role="button">Register</a>
+                <p class="text-muted">Have an account? <a href="{{ path_for('auth.signin') }}">Sign in</a></p>
+            </p>
+        </div>
+    </div>
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-12">
+                <h1>What is {{ app.name }}?</h1>
+
+                <p>{{ app.name }} is a Q&A (questions and answers) platform that allows you to interact with your friends.</p>
+                <p>With {{ app.name }}, you can ask anyone questions and get to know them better.</p>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="container text-center">
+        <div class="row">
+
+            <div class="col-12">
+                <h1>Why {{ app.name }}?</h1>
+                <p>
+                    While there are other platforms that provide a similar service, the goal of {{ app.name }} is to provide a more simplistic
+                    and friendly approach to interacting with friends and followers.
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h1 class="display-4 icon ion-android-list"></h1>
+                <h2>Profiles</h2>
+                <p>
+                    Creating an account will grant you your own personalized space all your questions and answers will appear for all your friends to see.
+                    You may also customize your profile to make it look and feel the way you like.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h1 class="display-4 icon ion-android-lock"></h1>
+                <h2>Privacy</h2>
+                <p>
+                    We provide appropriate settings so you feel safe and secure while using {{ app.name }} and allow you to hide your profile and content
+                    from prying eyes.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h1 class="display-4 icon ion-social-github"></h1>
+                <h2>Open Source</h2>
+                <p>
+                    At {{ app.name }}, we believe that transparency is important. Therefore, {{ app.name }} is fully open source and anyone can look at the code
+                    and even help contribute to its development.
+                    If you are a developer, you can help contribute at our <a href="https://github.com/Seramity/Listreme" target="_blank">Github</a>.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="container text-center">
+        <div class="row">
+
+            <div class="col-12">
+                <h2>Sounds good?</h2>
+                <a class="btn btn-outline-primary btn-lg" href="{{ path_for('auth.signup') }}">Let's get started</a>
+            </div>
+
+        </div>
+    </div>
+
+<script type="text/javascript">
+    // SMOOTH SCROLLING
+    $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}

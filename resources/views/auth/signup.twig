@@ -1,0 +1,83 @@
+{% extends 'templates/app.twig' %}
+
+{% block pageTitle %}Sign up{% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col-lg-8 mx-auto">
+
+            <div class="card">
+
+                {% if app.registration_enabled %}
+
+                    <div class="card-header">
+                        <h2>Sign up</h2>
+                        <h5 class="text-muted">Create your account to get started</h5>
+                    </div>
+
+                    <form action="{{ path_for('auth.signup') }}" method="post" autocomplete="off" class="signup-form">
+
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <input type="email" class="form-control{% if errors.email %} error{% endif %}" id="email" name="email" value="{{ old_input.email }}" aria-describedby="emailHelp"  placeholder="Email">
+                                {% if errors.email %} <div class="form_errors">{{ errors.email | first }}</div> {% endif %}
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control{% if errors.username %} error{% endif %}" id="username" name="username" value="{{ old_input.username }}" aria-describedby="usernameHelp"  placeholder="Username">
+                                {% if errors.username %} <div class="form_errors">{{ errors.username | first }}</div> {% endif %}
+                                <small id="usernameHelp" class="form-text text-muted">A short, memorable username between 3-{{ user.MAX_USERNAME_CHAR }} characters long.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" class="form-control{% if errors.password %} error{% endif %}" id="password" name="password" aria-describedby="passwordHelp"  placeholder="Password">
+                                {% if errors.password %} <div class="form_errors">{{ errors.password | first }}</div> {% endif %}
+                                <small id="passwordHelp" class="form-text text-muted">A strong password. 6 characters long minimum.</small>
+                            </div>
+
+                            {{ csrf.field | raw }}
+
+                        </div>
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-outline-success" data-submit-value="Creating...">Create Account</button>
+
+                            <div class="text-muted">
+                                By clicking "Create Account" you agree with our
+                                <a href="{{ path_for('page.terms') }}" target="_blank">Terms of Service</a> and <a href="{{ path_for('page.guidelines') }}" target="_blank">Guidelines</a>.
+                            </div>
+                        </div>
+
+                    </form>
+
+                {% else %}
+
+                    <div class="card-header">
+                        <h2>Registration Closed</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">Sorry, we are not accepting any more new accounts at this time.</p>
+                    </div>
+
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        $('.signup-form').on('submit', function() {
+            var self = $(this),
+                button = self.find('button[type="submit"]'),
+                submitValue = button.data('submit-value');
+
+            button.attr('disabled', 'disabled').text((submitValue) ? submitValue : 'Please Wait...');
+        });
+    </script>
+{% endblock %}
