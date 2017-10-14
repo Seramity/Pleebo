@@ -10,6 +10,7 @@
                 <div class="col-11">
                     <a href="{{ path_for('userProfile', {user: question.sender().username}) }}" class="font-weight-bold">{{ question.sender().username }}</a> asked...
                     <p>{{ question.text }}</p>
+                    <p class="ml-3 text-muted">{{ question.answer.text }}</p>
                     <small class="text-muted" title="{{ question.timestamp('answered_at') }}">{{ question.readableTime('answered_at') }}</small>
                 </div>
             {% else %}
@@ -20,6 +21,7 @@
                 <div class="col-11">
                     <a href="#" class="font-weight-bold">Anonymous</a> asked...
                     <p>{{ question.text }}</p>
+                    <p class="ml-3 text-muted">{{ question.answer.text }}</p>
                     <small class="text-muted" title="{{ question.timestamp('answered_at') }}">{{ question.readableTime('answered_at') }}</small>
                 </div>
             {% endif %}
