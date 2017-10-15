@@ -45,20 +45,3 @@ var confirmBox = function(message, url) {
 var confirmDeleteReceivedQuestion = function(id) {
     confirmBox('Are you sure you want to delete this question?',''+BASEURL+'/inbox/delete/'+id+'');
 }
-var confirmDeleteComment = function(id) {
-    confirmBox('Are you sure you want to delete this comment?',''+BASEURL+'/comment/delete/'+id+'');
-}
-
-
-/* ADD RESPONSIVE CLASSES IF CONTENT CONTAINS iframe, embed, OR object */
-$(document).ready(function(){
-    $('.card.list .card-block:has(iframe)', function() {
-        $('.card.list .card-block iframe').addClass('embed-responsive-item').wrap('<div class="embed-responsive embed-responsive-4by3"></div>');
-    });
-    $('.card.list .card-block:has(object)', function() {
-        $('.card.list .card-block object').addClass('embed-responsive-item').wrap('<div class="embed-responsive embed-responsive-4by3"></div>');
-    });
-    $('.card.list .card-block:has(embed)', function() {
-        $('.card.list .card-block embed').addClass('embed-responsive-item').wrap('<div class="embed-responsive embed-responsive-4by3"></div>');
-    });
-});
