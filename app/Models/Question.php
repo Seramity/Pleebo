@@ -50,22 +50,48 @@ class Question extends Model
      * Gets all unanswered questions that a user has received and returns them.
      * Also paginates based on the provided number.
      *
+     * @param int $paginate
+     *
      * @return Question
      */
     public function getReceivedQuestions($paginate)
     {
-        return $this->where('receiver_id', Auth::user()->id)->where('answered', NULL)->orderBy('created_at', 'desc')->paginate($paginate);
+        return $this->where('receiver_id', Auth::user()->id)
+            ->where('answered', NULL)
+            ->orderBy('created_at', 'desc')
+            ->paginate($paginate);
     }
 
     /**
      * Gets all questions sent by a user and returns them.
      * Also paginates based on the provided number.
      *
+     * @param int $paginate
+     *
      * @return Question
      */
     public function getSentQuestions($paginate)
     {
-        return $this->where('sender_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate($paginate);
+        return $this->where('sender_id', Auth::user()->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate($paginate);
+    }
+
+    /**
+     * Gets all answered questions a user has and returns them.
+     * Also paginates based on the provided number.
+     *
+     * @param $user_id
+     * @param $paginate
+     *
+     * @return Question
+     */
+    public function getUserQuestions($user_id, $paginate)
+    {
+        return $this->where('receiver_id', $user_id)
+            ->where('answered', true)
+            ->orderBy('answered_at', 'desc')
+            ->simplePaginate($paginate);
     }
 
 
@@ -93,6 +119,8 @@ class Question extends Model
      * Takes a timestamp and converts it to a user friendly timestamp.
      * Ex: "2 hours ago"
      *
+     * @param string $field
+     *
      * @return string
      */
     public function readableTime($field)
@@ -103,6 +131,8 @@ class Question extends Model
     /**
      * Takes a timestamp and converts it to a organized timestamp.
      * Ex: "25 May 2017 08:00 PM UTC"
+     *
+     * @param string $field
      *
      * @return string
      */
@@ -115,6 +145,8 @@ class Question extends Model
     /**
      * Creates relation with Answer and returns the model.
      * (Basically, it returns the only answer that is associated with this question.)
+     *
+     * @return Answer
      */
     public function answer() {
         return $this->hasOne('App\Models\Answer', 'question_id');

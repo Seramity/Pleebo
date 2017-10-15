@@ -15,7 +15,8 @@ class ProfileController extends Controller
 
         if(!$user) return $this->view->render($response, 'errors/404.twig')->withStatus(404);
 
-        $questions = Question::where('receiver_id', $user->id)->where('answered', true)->orderBy('answered_at', 'desc')->get();
+        $questions = new Question();
+        $questions = $questions->getUserQuestions($user->id, 10);
 
         $data = ['user' => $user, 'questions' => $questions, 'isUserProfile' => TRUE];
         return $this->view->render($response, 'user/profile.twig', $data);

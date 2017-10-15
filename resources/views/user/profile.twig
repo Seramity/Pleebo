@@ -14,6 +14,7 @@
             {% for question in questions %}
                 {% include 'templates/question/question.twig' %}
             {% endfor %}
+            {{ questions.links | raw }}
         {% else %}
             <h2>:( This place is quite empty, for now.</h2>
         {% endif %}
