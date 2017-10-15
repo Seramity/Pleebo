@@ -1,6 +1,6 @@
 {% extends 'templates/app.twig' %}
 
-{% block pageTitle %}Inbox{% endblock %}
+{% block pageTitle %}Sent{% endblock %}
 
 {% block content %}
 
@@ -13,10 +13,10 @@
                 <div class="card-body">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ path_for('inbox') }}">Inbox</a>
+                            <a class="nav-link" href="{{ path_for('inbox') }}">Inbox</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path_for('inbox.sent') }}">Sent</a>
+                            <a class="nav-link active" href="{{ path_for('inbox.sent') }}">Sent</a>
                         </li>
                     </ul>
                 </div>
@@ -25,7 +25,7 @@
 
         <div class="col-lg-9">
             {% for question in questions %}
-                {% include 'templates/question/question_request.twig' %}
+                {% include 'templates/question/question_sent.twig' %}
             {% endfor %}
 
             {{ questions.links | raw }}

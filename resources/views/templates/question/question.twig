@@ -1,4 +1,4 @@
-<div class="card question mb-3">
+<div class="card question mb-3" id="question-{{ question.id }}">
     <div class="card-body">
 
         <div class="row">
@@ -9,8 +9,8 @@
 
                 <div class="col-11">
                     <a href="{{ path_for('userProfile', {user: question.sender().username}) }}" class="font-weight-bold">{{ question.sender().username }}</a> asked...
-                    <p>{{ question.text }}</p>
-                    <p class="ml-3 text-muted">{{ question.answer.text }}</p>
+                    <div>{{ question.text }}</div>
+                    <div class="m-2 text-muted">{{ question.answer.text }}</div>
                     <small class="text-muted" title="{{ question.timestamp('answered_at') }}">{{ question.readableTime('answered_at') }}</small>
                 </div>
             {% else %}
@@ -20,8 +20,8 @@
 
                 <div class="col-11">
                     <a href="#" class="font-weight-bold">Anonymous</a> asked...
-                    <p>{{ question.text }}</p>
-                    <p class="ml-3 text-muted">{{ question.answer.text }}</p>
+                    <div>{{ question.text }}</div>
+                    <div class="m-2 text-muted">{{ question.answer.text }}</div>
                     <small class="text-muted" title="{{ question.timestamp('answered_at') }}">{{ question.readableTime('answered_at') }}</small>
                 </div>
             {% endif %}
@@ -31,10 +31,15 @@
 
         <div class="row text-center">
             <div class="col">
-                <span class="icon ion-trash-b button delete-button" title="Delete" onclick="confirmDeleteReceivedQuestion({{ question.id }});"></span>
+                <span class="icon ion-heart button fav-button" title="Favorite"></span>
             </div>
+            {% if auth.user.id == question.receiver().id %}
+                <div class="col">
+                    <span class="icon ion-trash-b button delete-button" title="Delete" onclick="confirmDeleteReceivedQuestion({{ question.id }});"></span>
+                </div>
+            {% endif %}
             <div class="col">
-                <span class="icon ion-android-cancel button block-button" title="Block user"></span>
+                <span class="icon ion-android-more-horizontal button misc-button" title="Favorite"></span>
             </div>
         </div>
 

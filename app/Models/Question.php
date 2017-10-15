@@ -42,18 +42,30 @@ class Question extends Model
      */
     public function deleteQuestion()
     {
-        // TODO: delete question and add functionality to delete all favorites associated with the question
+        // TODO: delete question and add functionality to delete all favorites associated with it
     }
 
 
     /**
-     * Gets all unanswered questions that a user has received.
+     * Gets all unanswered questions that a user has received and returns them.
+     * Also paginates based on the provided number.
      *
      * @return Question
      */
-    public function getReceivedQuestions()
+    public function getReceivedQuestions($paginate)
     {
-        return $this->where('receiver_id', Auth::user()->id)->where('answered', NULL)->orderBy('created_at', 'desc')->get();
+        return $this->where('receiver_id', Auth::user()->id)->where('answered', NULL)->orderBy('created_at', 'desc')->paginate($paginate);
+    }
+
+    /**
+     * Gets all questions sent by a user and returns them.
+     * Also paginates based on the provided number.
+     *
+     * @return Question
+     */
+    public function getSentQuestions($paginate)
+    {
+        return $this->where('sender_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate($paginate);
     }
 
 
@@ -62,7 +74,8 @@ class Question extends Model
      *
      * @return User
      */
-    public function sender() {
+    public function sender()
+    {
         return User::where('id', $this->sender_id)->first();
     }
 
@@ -71,7 +84,8 @@ class Question extends Model
      *
      * @return User
      */
-    public function receiver() {
+    public function receiver()
+    {
         return User::where('id', $this->receiver_id)->first();
     }
 

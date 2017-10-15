@@ -45,6 +45,7 @@ $app->group('', function () use ($app) {
 
     // INBOX ROUTES
     $app->get('/inbox', 'InboxController:index')->setName('inbox');
+    $app->get('/inbox/sent', 'InboxController:getSentQuestions')->setName('inbox.sent');
     $app->post('/inbox/reply', 'InboxController:postReplyQuestion')->setName('inbox.reply');
     $app->get('/inbox/delete/{id}', 'InboxController:getDeleteQuestion')->setName('inbox.delete');
 

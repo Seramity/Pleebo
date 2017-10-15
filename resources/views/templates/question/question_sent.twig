@@ -1,0 +1,29 @@
+<div class="card question mb-3" id="question-{{ question.id }}">
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-1">
+                <a href="{{ path_for('userProfile', {user: question.sender().username}) }}">{{ question.sender().getAvatar({size : 55}) | raw }}</a>
+            </div>
+
+            <div class="col-11">
+                <a href="{{ path_for('userProfile', {user: question.sender().username}) }}" class="font-weight-bold">
+                    {{ question.sender().username }}
+                </a>
+                {% if question.anonymous %}[As anonymous]{% endif %} asked
+                <a href="{{ path_for('userProfile', {user: question.receiver().username}) }}">{{ question.receiver().username }}</a> ...
+
+                <div>{{ question.text }}</div>
+                {% if question.answered %}
+                    <div class="m-2 text-muted">{{ question.answer.text }}</div>
+                {% else %}
+                    <div class="m-2">[Not answered]</div>
+                {% endif %}
+                <small class="text-muted" title="{{ question.timestamp('created_at') }}">{{ question.readableTime('created_at') }}</small>
+                {% if question.answered %}<small class="m-2 text-muted" title="{{ question.timestamp('answered_at') }}">(Answered: {{ question.readableTime('answered_at') }})</small>{% endif %}
+
+            </div>
+        </div>
+
+    </div>
+</div>

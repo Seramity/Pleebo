@@ -13,9 +13,17 @@ class InboxController extends Controller
     public function index($request, $response)
     {
         $questions = new Question();
-        $questions = $questions->getReceivedQuestions();
+        $questions = $questions->getReceivedQuestions(10);
 
         return $this->view->render($response, 'inbox/inbox.twig', ['questions' => $questions]);
+    }
+
+    public function getSentQuestions($request, $response)
+    {
+        $questions = new Question();
+        $questions = $questions->getSentQuestions(10);
+
+        return $this->view->render($response, 'inbox/sent.twig', ['questions' => $questions]);
     }
 
     public function postReplyQuestion($request, $response)
@@ -67,6 +75,12 @@ class InboxController extends Controller
 
         if($question->receiver_id !== $this->auth->user()->id) {
             $this->flash->addMessage('global_error', 'You do not own that question');
+            return $response->withRedirect($this->router->pathFor('inbox'));
+        }
+
+        // Deny sender to delete the question after it has been sent if the question is not sent to themselves
+        if($this->auth->user()->id == $question->sender_id && $this->auth->user()->id !== $question->receiver_id) {
+            $this->flash->addMessage('global_error', 'You cannot delete that question');
             return $response->withRedirect($this->router->pathFor('inbox'));
         }
 
