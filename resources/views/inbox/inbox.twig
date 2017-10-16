@@ -47,11 +47,18 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ path_for('inbox.reply') }}" method="post" autocomplete="off" class="reply-form">
+                <form action="{{ path_for('inbox.reply') }}" method="post" enctype="multipart/form-data" autocomplete="off" class="reply-form">
                     <div class="modal-body">
                         <p class="question-text muted"></p>
                         <div class="form-group">
-                            <textarea class="form-control" id="reply" name="reply" placeholder="Your reply" autofocus></textarea>
+                            <textarea class="form-control {% if errors.reply %} error{% endif %}" id="reply" name="reply" placeholder="Your reply" autofocus></textarea>
+                            {% if errors.reply %} <div class="form_errors">{{ errors.reply | first }}</div> {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <input type="file" class="form-control-file{% if errors.image %} error{% endif %}" id="image" name="image" accept="image/*" aria-describedby="imageHelp" style="width:100%;">
+                            {% if errors.image %} <div class="form_errors">{{ errors.image | first }}</div> {% endif %}
+                            <small id="imageHelp" class="form-text text-muted">Pick a image (.jpg, .png, .gif) under a size of 2MB.</small>
                         </div>
                     </div>
                     <div class="modal-footer">

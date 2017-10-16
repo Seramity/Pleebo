@@ -2,29 +2,27 @@
     <div class="card-body">
 
         <div class="row">
-            {% if not question.anonymous %}
-                <div class="col-1">
+            <div class="col-1">
+                {% if not question.anonymous %}
                     <a href="{{ path_for('userProfile', {user: question.sender().username}) }}">{{ question.sender().getAvatar({size : 55}) | raw }}</a>
-                </div>
+                {% else %}
+                    <a href="#"><img id="user-avatar" src="{{ base_url() }}/assets/default_avatar.png" alt="Anonymous" width="55px"></a>
+                {% endif %}
+            </div>
 
-                <div class="col-11">
+            <div class="col-11">
+                {% if not question.anonymous %}
                     <a href="{{ path_for('userProfile', {user: question.sender().username}) }}" class="font-weight-bold">{{ question.sender().username }}</a> asked...
-                    <div>{{ question.text }}</div>
-                    <div class="m-2 text-muted">{{ question.answer.text }}</div>
-                    <small class="text-muted" title="{{ question.timestamp('answered_at') }}">{{ question.readableTime('answered_at') }}</small>
-                </div>
-            {% else %}
-                <div class="col-1">
-                    <img id="user-avatar" src="{{ base_url }}assets/default_avatar.png" alt="Anonymous" width="55px">
-                </div>
-
-                <div class="col-11">
+                {% else %}
                     <a href="#" class="font-weight-bold">Anonymous</a> asked...
-                    <div>{{ question.text }}</div>
-                    <div class="m-2 text-muted">{{ question.answer.text }}</div>
-                    <small class="text-muted" title="{{ question.timestamp('answered_at') }}">{{ question.readableTime('answered_at') }}</small>
+                {% endif %}
+                <div>{{ question.text }}</div>
+                <div class="m-2 text-muted">
+                    {{ question.answer.text }}
+                    {% if question.answer.uploaded_image %}<img class="answer-image" src="{{ base_url() }}/assets/uploads/answers/{{ question.answer.uploaded_image }}">{% endif %}
                 </div>
-            {% endif %}
+                <small class="text-muted" title="{{ question.timestamp('answered_at') }}">{{ question.readableTime('answered_at') }}</small>
+            </div>
         </div>
 
         <hr>

@@ -15,7 +15,10 @@
 
                 <div>{{ question.text }}</div>
                 {% if question.answered %}
-                    <div class="m-2 text-muted">{{ question.answer.text }}</div>
+                    <div class="m-2 text-muted">
+                        {{ question.answer.text }}
+                        {% if question.answer.uploaded_image %}<img class="answer-image" src="{{ base_url() }}/assets/uploads/answers/{{ question.answer.uploaded_image }}">{% endif %}
+                    </div>
                 {% else %}
                     <div class="m-2">[Not answered]</div>
                 {% endif %}

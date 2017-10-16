@@ -40,7 +40,7 @@ class Image
     public function upload($image, $file_name, $size)
     {
         /* new file name */
-        $path = $_SERVER['DOCUMENT_ROOT'] . $this->container->request->getUri()->getBasePath() . '/assets/uploads/avatars/' . $file_name;
+        $path = $_SERVER['DOCUMENT_ROOT'] . $this->container->request->getUri()->getBasePath() . "/assets/uploads/avatars/" . $file_name;
 
         if ($image->getClientMediaType() == "image/gif" && Auth::user()->isSubscriber()) {
             $is_animated = true;
@@ -76,6 +76,14 @@ class Image
 
         /* cleanup memory */
         imagedestroy($img);
+    }
+
+    public function directUpload($image, $file_name)
+    {
+        if($image && $file_name) {
+            $path = $_SERVER['DOCUMENT_ROOT'] . $this->container->request->getUri()->getBasePath() . "/assets/uploads/answers/" . $file_name;
+            move_uploaded_file($image->file, $path);
+        }
     }
 
     /**
@@ -140,6 +148,16 @@ class Image
      */
     public function deleteAvatar($file)
     {
-        unlink($_SERVER['DOCUMENT_ROOT'] . $this->container->request->getUri()->getBasePath() . '/assets/uploads/avatars/' . $file);
+        unlink($_SERVER['DOCUMENT_ROOT'] . $this->container->request->getUri()->getBasePath() . "/assets/uploads/avatars/" . $file);
+    }
+
+    /**
+     * Delete a uploaded image from an answer
+     *
+     * @param string $file
+     */
+    public function deleteAnswerImage($file)
+    {
+        unlink($_SERVER['DOCUMENT_ROOT'] . $this->container->request->getUri()->getBasePath() . "/assets/uploads/answers/" . $file);
     }
 }

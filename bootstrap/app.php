@@ -29,7 +29,8 @@ $app = new \Slim\App([
             'baseUrl' => getenv('APP_BASEURL'),
             'debug' => filter_var(getenv('APP_DEBUG'), FILTER_VALIDATE_BOOLEAN),
             'cache' => filter_var(getenv('APP_CACHE'), FILTER_VALIDATE_BOOLEAN),
-            'registration_enabled' => filter_var(getenv('REGISTRATION'), FILTER_VALIDATE_BOOLEAN)
+            'registration_enabled' => filter_var(getenv('REGISTRATION'), FILTER_VALIDATE_BOOLEAN),
+            'max_file_size' => getenv('APP_MAX_FILE_SIZE')
         ],
 
         'auth' => [
@@ -57,6 +58,11 @@ $app = new \Slim\App([
             ],
             'username' => getenv('MAIL_USERNAME'),
             'password' => getenv('MAIL_PASSWORD')
+        ],
+
+        'paths' => [
+            'avatar' => getenv('PATH_AVATAR_UPLOAD'),
+            'answer_image' => getenv('PATH_ANSWER_IMAGE_UPLOAD')
         ]
     ]
 ]);

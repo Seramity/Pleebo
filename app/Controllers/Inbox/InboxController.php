@@ -3,6 +3,7 @@
 namespace App\Controllers\Inbox;
 
 use App\Controllers\Controller;
+use App\Helpers\Image;
 use App\Models\Answer;
 use App\Models\Question;
 use Respect\Validation\Validator as v;
@@ -41,11 +42,16 @@ class InboxController extends Controller
         }
 
         $validation = $this->validator->validate($request, [
-            'reply' => v::length(NULL, $answer->MAX_TEXT_CHAR)
+            'reply' => v::length(NULL, $answer->MAX_TEXT_CHAR),
         ]);
 
+        // separate validator for the uploaded image
+        $validation = $this->validator->Validate($request, [
+            'image' => v::optional(v::image())->optional(v::size(NULL, $this->container['settings']['app']['max_file_size']))
+        ], true);
+
         if($validation->failed()) {
-            $this->flash->addMessage('global_error', 'Your reply must be under '. $answer->MAX_TEXT_CHAR .' characters');
+            $this->flash->addMessage('global_error', 'There was a problem sending your answer');
             return $response->withRedirect($this->router->pathFor('inbox'));
         }
 
@@ -54,6 +60,20 @@ class InboxController extends Controller
             'question_id' => $request->getParam('qid'),
             'text' => $request->getParam('reply')
         ]);
+
+        // if an image is uploaded with the answer
+        if($request->getUploadedFiles()['image']->file !== "") {
+            $uploaded_img = $request->getUploadedFiles()['image'];
+            $img_ext = pathinfo($request->getUploadedFiles()['image']->getClientFilename(), PATHINFO_EXTENSION);
+            $file_name = $answer->id . "-" . mt_rand() . "." . $img_ext;
+
+            $image = new Image();
+            $image->directUpload($uploaded_img, $file_name);
+
+            $answer->update([
+                'uploaded_image' => $file_name
+            ]);
+        }
 
         $question->update([
             'answered' => true,

@@ -21,7 +21,7 @@ class PictureSettingsController extends Controller
     {
 
         $validation = $this->validator->validate($request, [
-            'avatar' => v::image()->size(NULL, '2MB')
+            'avatar' => v::image()->size(NULL, $this->container['settings']['app']['max_file_size'])
         ], true);
 
 

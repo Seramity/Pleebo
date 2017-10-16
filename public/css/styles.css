@@ -314,6 +314,7 @@ button:disabled {background-color: #8696A4 !important;border-color: #8696A4 !imp
     padding-bottom: 0.5rem;
 }
 .card.question .card-body hr {margin: 0.3rem}
+.card.question .card-body .answer-image {max-width: 100%;}
 
 .card.question .button {color:#9ea1a2;font-size: 1.2em;cursor:pointer;transition: all 0.5s ease;-webkit-transition: all 0.5s ease;}
 .card.question .button.reply-button:hover {color: #1DCE79;}
