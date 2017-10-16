@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Image;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\Auth\Auth;
@@ -42,7 +43,17 @@ class Question extends Model
      */
     public function deleteQuestion()
     {
-        // TODO: delete question and add functionality to delete all favorites associated with it
+        if($this->answer) {
+            // delete image upload if it exists
+            $image = new Image();
+            $image->deleteAnswerImage($this->answer->uploaded_image);
+
+            $this->answer()->delete();
+
+            // TODO: add favorite delete function
+        }
+
+        $this->delete();
     }
 
 

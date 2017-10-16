@@ -104,9 +104,16 @@ class InboxController extends Controller
             return $response->withRedirect($this->router->pathFor('inbox'));
         }
 
-        $question->delete();
+        // Helps redirect to profile if a question with an answer is deleted
+        // So it will not annoyingly redirect to the inbox when it is not necessary
+        $profile_redirect = false;
+        $receiver_username = $question->receiver()->username;
+        if($question->answer) $profile_redirect = true;
+
+        $question->deleteQuestion();
 
         $this->flash->addMessage('global_success', 'Question successfully deleted');
+        if($profile_redirect) return $response->withRedirect($this->router->pathFor('userProfile', ['user' => $receiver_username]));
         return $response->withRedirect($this->router->pathFor('inbox'));
 
     }
