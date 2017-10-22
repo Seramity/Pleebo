@@ -12,12 +12,10 @@
         "slim/csrf": "^0.8.1",
         "slim/flash": "^0.2.0",
         "ircmaxell/random-lib": "^1.2",
-        "michelf/php-markdown": "^1.7",
         "vlucas/phpdotenv": "^2.4",
         "illuminate/pagination": "^5.4",
         "robmorgan/phinx": "0.7.2",
         "coldume/imagecraft": "~1.0",
-        "league/commonmark": "^0.15.4",
         "swiftmailer/swiftmailer": "^6.0",
         "symfony/var-dumper": "^3.3"
     },

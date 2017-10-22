@@ -225,8 +225,8 @@ button:disabled {background-color: #8696A4 !important;border-color: #8696A4 !imp
 .navbar-main.navbar-light .navbar-brand:hover {color: #ff6161;}
 .navbar-nav.main-links {margin-top: 0.4rem;}
 .navbar .nav-item a {font-family: 'Fantasque Sans Mono', monospace;font-weight: bold;font-size: 1.05em;}
-.dropdown-menu .dropdown-item {color: rgba(0,0,0,.5);}
-.dropdown-menu .dropdown-item:active {color: #fff;background-color: #ff8989;}
+.dropdown-menu .dropdown-item {color: rgba(0,0,0,.5) !important;}
+.dropdown-menu .dropdown-item:active {color: #fff !important;background-color: #ff8989 !important;}
 
 .navbar.navbar-main {background-color: #292b2c;box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);}
 

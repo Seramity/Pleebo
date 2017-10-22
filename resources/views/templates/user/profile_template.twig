@@ -9,14 +9,14 @@
 
     {% if user.box_color %}
         <style>
-            .card, .profile-nav {background-color: {{ user.box_color }} !important;}
+            .card, .profile-nav, .navbar {background-color: {{ user.box_color }} !important;}
         </style>
     {% endif %}
 
     {% if user.text_color %}
         <style>
             body {color: {{ user.text_color }} !important;}
-            .profile-content a, .profile-nav a {color: {{ user.text_color}} !important;}
+            .profile-content a, .profile-nav a, .navbar a {color: {{ user.text_color}} !important;}
         </style>
     {% endif %}
 {% endblock %}
