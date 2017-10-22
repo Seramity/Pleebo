@@ -65,30 +65,30 @@
                                 <hr>
 
                                 <div class="form-group">
-                                    <label class="form-control-label" for="bgcolor">Background color</label>
-                                    <input class="jscolor form-control{% if errors.bgcolor %} error{% endif %}" id="bgcolor" name="bgcolor" value="{% if old_input.bgcolor %}{{ old_input.bgcolor }}{% else %}{{ auth.user.bgcolor }}{% endif %}" aria-describedby="bgcolorHelp">
-                                    {% if errors.bgcolor%} <div class="form_errors">{{ errors.bgcolor | first }}</div> {% endif %}
-                                    <small id="bgcolorHelp" class="form-text text-muted">Changes the background color on your profile.</small>
+                                    <label class="form-control-label" for="bg_color">Background color</label>
+                                    <input class="jscolor {hash:true,required:false} form-control{% if errors.bg_color %} error{% endif %}" id="bg_color" name="bg_color" value="{% if old_input.bg_color %}{{ old_input.bg_color }}{% else %}{{ auth.user.bg_color }}{% endif %}" aria-describedby="bgColorHelp">
+                                    {% if errors.bg_color%} <div class="form_errors">{{ errors.bg_color | first }}</div> {% endif %}
+                                    <small id="bgColorHelp" class="form-text text-muted">Changes the background color on your profile.</small>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="form-control-label" for="boxcolor">Box colors</label>
-                                    <input class="jscolor form-control{% if errors.boxcolor %} error{% endif %}" id="boxcolor" name="boxcolor" value="{% if old_input.boxcolor %}{{ old_input.boxcolor }}{% else %}{{ auth.user.boxcolor }}{% endif %}" aria-describedby="boxcolorHelp">
-                                    {% if errors.boxcolor %} <div class="form_errors">{{ errors.boxcolor | first }}</div> {% endif %}
-                                    <small id="boxcolorHelp" class="form-text text-muted">Changes the background colors of the boxes on your profile (profile sidebar, questions, etc).</small>
+                                    <label class="form-control-label" for="box_color">Box colors</label>
+                                    <input class="jscolor {hash:true,required:false} {required:false} form-control{% if errors.box_color %} error{% endif %}" id="box_color" name="box_color" value="{% if old_input.box_color %}{{ old_input.box_color }}{% else %}{{ auth.user.box_color }}{% endif %}" aria-describedby="boxColorHelp">
+                                    {% if errors.box_color %} <div class="form_errors">{{ errors.box_color | first }}</div> {% endif %}
+                                    <small id="boxColorHelp" class="form-text text-muted">Changes the background colors of the boxes on your profile (profile sidebar, questions, etc).</small>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="form-control-label" for="textcolor">Text color</label>
-                                    <input class="jscolor form-control{% if errors.textcolor %} error{% endif %}" id="textcolor" name="textcolor" value="{% if old_input.bgcolor %}{{ old_input.bgcolor }}{% else %}{{ auth.user.bio }}{% endif %}" aria-describedby="textcolorHelp">
-                                    {% if errors.textcolor %} <div class="form_errors">{{ errors.textcolor | first }}</div> {% endif %}
-                                    <small id="textcolorHelp" class="form-text text-muted">Changes the text color on your profile.</small>
+                                    <label class="form-control-label" for="text_color">Text color</label>
+                                    <input class="jscolor {hash:true,required:false} {required:false} form-control{% if errors.text_color %} error{% endif %}" id="text_color" name="text_color" value="{% if old_input.text_color %}{{ old_input.text_color }}{% else %}{{ auth.user.text_color }}{% endif %}" aria-describedby="textColorHelp">
+                                    {% if errors.text_color %} <div class="form_errors">{{ errors.text_color | first }}</div> {% endif %}
+                                    <small id="textColorHelp" class="form-text text-muted">Changes the text color on your profile.</small>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-control-label" for="questionPlaceholder">Question Placeholder</label>
-                                    <textarea class="form-control no-resize{% if errors.bio %} error{% endif %}" id="questionPlaceholder" name="questionPlaceholder" placeholder="Ask me anything">{% if old_input.questionPlaceholder %}{{ old_input.questionPlaceholder }}{% else %}{# add user field first #}{% endif %}</textarea>
-                                    {% if errors.textcolor %} <div class="form_errors">{{ errors.textcolor | first }}</div> {% endif %}
+                                    <textarea class="form-control no-resize{% if errors.questionPlaceholder %} error{% endif %}" id="questionPlaceholder" name="questionPlaceholder" placeholder="Ask me anything">{% if old_input.questionPlaceholder %}{{ old_input.questionPlaceholder }}{% else %}{# add user field first #}{% endif %}</textarea>
+                                    {% if errors.text_color %} <div class="form_errors">{{ errors.text_color | first }}</div> {% endif %}
                                     <small id="questionPlaceholderHelp" class="form-text text-muted">Changes the placeholder of your question field on your profile.</small>
                                 </div>
                             </div>

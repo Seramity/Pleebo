@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+<nav class="navbar navbar-expand-lg navbar-light bg-light rounded profile-nav">
     <a class="navbar-brand">
         {% if user.username ends with 's' %}
             {{ user.username }}' Profile
@@ -14,7 +14,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="{{ path_for('userProfile', {user : user.username}) }}"><span class="ion ion-clipboard"></span> Answers ({{ user.countAnsweredQuestions() }})</a>
+                <a class="nav-link" href="{{ path_for('userProfile', {user : user.username}) }}"><span class="ion ion-chatbubbles"></span> Answers ({{ user.countAnsweredQuestions() }})</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path_for('userProfile.favorites', {user : user.username}) }}"><span class="icon ion-star"></span> Favorites ({{ user.countListFavorites() }})</a>

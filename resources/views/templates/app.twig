@@ -3,6 +3,8 @@
 <head>
     {% include 'templates/partials/head.twig' %}
     <title>{% block pageTitle %}{% endblock %} | {{ app.name }}</title>
+
+    {% block customProfileStyles %}{% endblock %}
 </head>
 
 <body>

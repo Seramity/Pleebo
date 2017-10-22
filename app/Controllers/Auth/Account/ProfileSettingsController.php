@@ -20,6 +20,9 @@ class ProfileSettingsController extends Controller
             'email' => v::noWhitespace()->notEmpty()->email()->length(NULL, $this->auth->user()->MAX_EMAIL_CHAR)->emailAvailable($this->auth->user()->email),
             'name' => v::optional(v::alpha())->length(NULL, $this->auth->user()->MAX_NAME_CHAR),
             'bio' => v::length(NULL, $this->auth->user()->MAX_BIO_CHAR),
+            'bg_color' => v::optional(v::hexRgbColor()),
+            'box_color' => v::optional(v::hexRgbColor()),
+            'text_color' => v::optional(v::hexRgbColor())
         ]);
 
 
@@ -32,7 +35,10 @@ class ProfileSettingsController extends Controller
             'username' => $request->getParam('username'),
             'email' => $request->getParam('email'),
             'name' => $request->getParam('name'),
-            'bio' => $request->getParam('bio')
+            'bio' => $request->getParam('bio'),
+            'bg_color' => $request->getParam('bg_color'),
+            'box_color' => $request->getParam('box_color'),
+            'text_color' => $request->getParam('text_color')
         ]);
 
         $this->flash->addMessage('global_success', 'Your profile settings have been updated');

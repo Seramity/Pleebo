@@ -1,5 +1,26 @@
 {% extends 'templates/app.twig' %}
 
+{% block customProfileStyles %}
+    {% if user.bg_color %}
+        <style>
+            body {background-color: {{ user.bg_color }};}
+        </style>
+    {% endif %}
+
+    {% if user.box_color %}
+        <style>
+            .card, .profile-nav {background-color: {{ user.box_color }} !important;}
+        </style>
+    {% endif %}
+
+    {% if user.text_color %}
+        <style>
+            body {color: {{ user.text_color }} !important;}
+            .profile-content a, .profile-nav a {color: {{ user.text_color}} !important;}
+        </style>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 
     <div class="row">
@@ -31,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="card mb-3">
+            <div class="card mb-3 profile-content">
 
                 <form action="{{ path_for('question.new') }}" method="post" autocomplete="off" class="ask-form">
                     <div class="card-body">

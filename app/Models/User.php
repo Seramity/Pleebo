@@ -42,7 +42,10 @@ class User extends Model
         'name',
         'bio',
         'gravatar',
-        'uploaded_avatar'
+        'uploaded_avatar',
+        'bg_color',
+        'box_color',
+        'text_color'
     ];
 
     /**
