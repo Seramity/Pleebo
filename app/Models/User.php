@@ -45,7 +45,8 @@ class User extends Model
         'uploaded_avatar',
         'bg_color',
         'box_color',
-        'text_color'
+        'text_color',
+        'placeholder'
     ];
 
     /**
@@ -56,12 +57,14 @@ class User extends Model
      * @var int $MAX_NAME_CHAR
      * @var int $MAX_BIO_CHAR
      * @var int $MIN_PASSWORD_CHAR
+     * @var int $MAX_PLACEHOLDER_CHAR
      */
     public $MAX_USERNAME_CHAR = 15;
     public $MAX_EMAIL_CHAR = 128;
     public $MAX_NAME_CHAR = 64;
     public $MAX_BIO_CHAR = 1000;
     public $MIN_PASSWORD_CHAR = 6;
+    public $MAX_PLACEHOLDER_CHAR = 64;
 
     /**
      * Password strength for password_hash().

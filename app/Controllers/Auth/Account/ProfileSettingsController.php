@@ -22,7 +22,8 @@ class ProfileSettingsController extends Controller
             'bio' => v::length(NULL, $this->auth->user()->MAX_BIO_CHAR),
             'bg_color' => v::optional(v::hexRgbColor()),
             'box_color' => v::optional(v::hexRgbColor()),
-            'text_color' => v::optional(v::hexRgbColor())
+            'text_color' => v::optional(v::hexRgbColor()),
+            'placeholder' => v::length(NULL, $this->auth->user()->MAX_PLACEHOLDER_CHAR)
         ]);
 
 
@@ -38,7 +39,8 @@ class ProfileSettingsController extends Controller
             'bio' => $request->getParam('bio'),
             'bg_color' => $request->getParam('bg_color'),
             'box_color' => $request->getParam('box_color'),
-            'text_color' => $request->getParam('text_color')
+            'text_color' => $request->getParam('text_color'),
+            'placeholder' => $request->getParam('placeholder')
         ]);
 
         $this->flash->addMessage('global_success', 'Your profile settings have been updated');

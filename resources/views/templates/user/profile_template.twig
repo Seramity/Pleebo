@@ -57,7 +57,7 @@
                 <form action="{{ path_for('question.new') }}" method="post" autocomplete="off" class="ask-form">
                     <div class="card-body">
                         <div class="form-group">
-                            <textarea class="form-control no-resize{% if errors.question %} error{% endif %}" id="question" name="question" rows="3" placeholder="Ask me anything" required>{% if old_input.question %}{{ old_input.question }}{% endif %}</textarea>
+                            <textarea class="form-control no-resize{% if errors.question %} error{% endif %}" id="question" name="question" rows="3" {% if user.placeholder %}placeholder="{{ user.placeholder }}"{% else %}placeholder="Ask me anything"{% endif %} required>{% if old_input.question %}{{ old_input.question }}{% endif %}</textarea>
                             {% if errors.question %} <div class="form_errors">{{ errors.question | first }}</div> {% endif %}
                         </div>
 
