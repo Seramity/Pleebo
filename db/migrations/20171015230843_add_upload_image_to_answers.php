@@ -14,7 +14,7 @@ class AddUploadImageToAnswers extends Migration
 
     public function down()
     {
-        $this->schema->table('', function (Blueprint $table) {
+        $this->schema->table('answers', function (Blueprint $table) {
             $table->dropColumn('uploaded_image');
         });
     }
