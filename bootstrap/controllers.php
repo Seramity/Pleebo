@@ -67,6 +67,9 @@ $container['NewQuestionController'] = function ($container) {
 $container['DeleteQuestionController'] = function ($container) {
     return new \App\Controllers\Question\DeleteQuestionController($container);
 };
+$container['FavoriteController'] = function ($container) {
+  return new \App\Controllers\Question\FavoriteController($container);
+};
 
 // INBOX CONTROLLERS
 $container['InboxController'] = function ($container) {

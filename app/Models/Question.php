@@ -105,6 +105,16 @@ class Question extends Model
             ->simplePaginate($paginate);
     }
 
+    /**
+     * Checks whether a user has favorited a question and returns a boolean.
+     *
+     * @return boolean
+     */
+    public function favorited() {
+        $favorite = QuestionFavorite::where("question_id", $this->id)->where("user_id", Auth::user()->id)->first();
+
+        return ($favorite) ? true : false;
+    }
 
     /**
      * Finds the question owner and then allows access through the Question model.

@@ -28,16 +28,26 @@
         <hr>
 
         <div class="row text-center">
-            <div class="col">
-                <span class="icon ion-heart button fav-button" title="Favorite"></span>
-            </div>
-            {% if auth.user.id == question.receiver().id %}
+            {% if auth.check() %}
                 <div class="col">
-                    <span class="icon ion-trash-b button delete-button" title="Delete" onclick="confirmDeleteReceivedQuestion({{ question.id }});"></span>
+                    {% if not question.favorited() %}
+                        <span class="icon ion-heart button fav-button" title="Favorite" onclick="favorite({{ question.id }});"></span>
+                    {% else %}
+                        <span class="icon ion-heart button fav-button active" title="Unfavorite" onclick="deleteFavorite({{ question.id }});"></span>
+                    {% endif %}
+                </div>
+                {% if auth.user.id == question.receiver().id %}
+                    <div class="col">
+                        <span class="icon ion-trash-b button delete-button" title="Delete" onclick="confirmDeleteReceivedQuestion({{ question.id }});"></span>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="col">
+                    <a href="{{ path_for('question.favorite', {id : question.id}) }}"><span class="icon ion-heart button fav-button" title="Favorite"></span></a>
                 </div>
             {% endif %}
             <div class="col">
-                <span class="icon ion-android-more-horizontal button misc-button" title="Favorite"></span>
+                <span class="icon ion-android-more-horizontal button misc-button" title="Menu"></span>
             </div>
         </div>
 

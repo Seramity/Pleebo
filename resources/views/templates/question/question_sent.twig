@@ -28,5 +28,18 @@
             </div>
         </div>
 
+        <div class="row text-center">
+            <div class="col">
+                {% if not question.favorited() %}
+                    <span class="icon ion-heart button fav-button" title="Favorite" onclick="favorite({{ question.id }});"></span>
+                {% else %}
+                    <span class="icon ion-heart button fav-button active" title="Unfavorite" onclick="deleteFavorite({{ question.id }});"></span>
+                {% endif %}
+            </div>
+            <div class="col">
+                <span class="icon ion-android-more-horizontal button misc-button" title="Menu"></span>
+            </div>
+        </div>
+
     </div>
 </div>

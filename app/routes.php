@@ -64,7 +64,8 @@ $app->group('', function () use ($app) {
     // QUESTION ROUTES
     $app->post('/question/new', 'NewQuestionController:postNewQuestion')->setName('question.new');
     //$app->get('/question/delete/{id}', 'DeleteQuestionController:getDeleteQuestion')->setName('question.delete');
-
+    $app->get('/question/favorite/{id}', 'FavoriteController:getFavorite')->setName('question.favorite');
+    $app->get('/question/unfavorite/{id}', 'FavoriteController:getDeleteFavorite')->setName('question.unfavorite');
 
 
 })->add(new AuthMiddleware($container));

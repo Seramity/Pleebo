@@ -322,6 +322,8 @@ button:disabled {background-color: #8696A4 !important;border-color: #8696A4 !imp
 .card.question .button.block-button:hover {color: #CC6439;}
 .card.question .button.fav-button:hover {color: #ff6161;}
 .card.question .button.misc-button:hover {color: #5a676d;}
+.card.question .button.fav-button.active {color: #ff6161;}
+
 
 
 

@@ -1,5 +1,7 @@
 // NOTIFICATIONS
 function notification(msg, type) {
+	$("#noty_topCenter_layout_container").remove();
+
 	noty({
 		layout: 'topCenter',
 		theme: 'relax',
@@ -44,4 +46,46 @@ var confirmBox = function(message, url) {
 
 var confirmDeleteReceivedQuestion = function(id) {
     confirmBox('Are you sure you want to delete this question?',''+BASEURL+'/inbox/delete/'+id+'');
+}
+
+/* AJAX FUNCTIONS */
+
+function favorite(qid) {
+	$.ajax({
+		url: BASEURL + "/question/favorite/" + qid,
+		type: "GET",
+		dataType: "json",
+		success: function (data) {
+			console.log(data);
+			if (data.errorType) {
+				notification(data.msg, "error");
+			} else {
+				$("#question-"+	qid + " .fav-button").addClass("active").attr("onclick","deleteFavorite("+qid+");");
+                notification(data.msg, "success");
+            }
+		},
+		error: function () {
+			console.log("favorite Error");
+		}
+	});
+}
+
+function deleteFavorite(qid) {
+	$.ajax({
+		url: BASEURL + "/question/unfavorite/" + qid,
+		type: "GET",
+		dataType: "json",
+		success: function (data) {
+            console.log(data);
+            if (data.errorType) {
+                notification(data.msg, "error");
+            } else  {
+                $("#question-"+	qid + " .fav-button").removeClass("active").attr("onclick","favorite("+qid+");");
+                notification(data.msg, "success");
+            }
+		},
+		error: function () {
+			console.log("deleteFavorite Error");
+		}
+	});
 }
