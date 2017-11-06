@@ -191,6 +191,16 @@ class User extends Model
         return Question::where('receiver_id', $this->id)->where('answered', true)->count();
     }
 
+    /**
+     * Returns the number of question favorites a user has.
+     *
+     * @return int
+     */
+    public function countQuestionFavorites()
+    {
+        return QuestionFavorite::where('user_id', $this->id)->count();
+    }
+
 
     /**
      * Deletes a user's account.

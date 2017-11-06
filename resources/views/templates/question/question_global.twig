@@ -12,9 +12,11 @@
 
             <div class="col-11">
                 {% if not question.anonymous %}
-                    <a href="{{ path_for('userProfile', {user: question.sender().username}) }}" class="font-weight-bold">{{ question.sender().username }}</a> asked...
+                    <a href="{{ path_for('userProfile', {user: question.sender().username}) }}" class="font-weight-bold">{{ question.sender().username }}</a> asked
+                    <a href="{{ path_for('userProfile', {user: question.receiver().username}) }}">{{ question.receiver().username }}</a> ...
                 {% else %}
-                    <a href="#" class="font-weight-bold">Anonymous</a> asked...
+                    <a href="#" class="font-weight-bold">Anonymous</a> asked
+                    <a href="{{ path_for('userProfile', {user: question.receiver().username}) }}">{{ question.receiver().username }}</a> ...
                 {% endif %}
                 <div>{{ question.text }}</div>
                 <div class="m-2 text-muted">

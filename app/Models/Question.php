@@ -106,6 +106,27 @@ class Question extends Model
     }
 
     /**
+     * Gets all questions that a user has favorited and returns them.
+     * Also paginates based on the provided number.
+     *
+     * @param $user_id
+     * @param $paginate
+     *
+     * @return Question
+     */
+    public function getUserFavorites($user_id, $paginate) {
+        $favorites = QuestionFavorite::where('user_id', $user_id)->get();
+        $favoriteIds = array();
+        foreach($favorites as $favorite) {
+            $favoriteIds[] = $favorite->question_id;
+        }
+
+        return $this->whereIn('id', $favoriteIds)
+            ->orderBy('answered_at', 'desc')
+            ->simplePaginate($paginate);
+    }
+
+    /**
      * Checks whether a user has favorited a question and returns a boolean.
      *
      * @return boolean

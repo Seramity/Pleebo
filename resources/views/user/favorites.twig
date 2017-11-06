@@ -15,6 +15,14 @@
 
         {% include 'user/partials/profile_nav.twig' %}
 
+        {% if not questions.isEmpty() %}
+            {% for question in questions %}
+                {% include 'templates/question/question_global.twig' %}
+            {% endfor %}
+            {{ questions.links | raw }}
+        {% else %}
+            <h2>:( This user has no favorites yet.</h2>
+        {% endif %}
 
     </div>
 

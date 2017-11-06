@@ -17,7 +17,7 @@
                 <a class="nav-link" href="{{ path_for('userProfile', {user : user.username}) }}"><span class="ion ion-chatbubbles"></span> Answers ({{ user.countAnsweredQuestions() }})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path_for('userProfile.favorites', {user : user.username}) }}"><span class="icon ion-star"></span> Favorites ({{ user.countListFavorites() }})</a>
+                <a class="nav-link" href="{{ path_for('userProfile.favorites', {user : user.username}) }}"><span class="icon ion-star"></span> Favorites ({{ user.countQuestionFavorites() }})</a>
             </li>
         </ul>
     </div>
