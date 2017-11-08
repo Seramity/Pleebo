@@ -35,6 +35,19 @@ class Answer extends Model
     public $MAX_TEXT_CHAR = 280;
 
     /**
+     * Overrides the text field call (i.e. $answer->text) and returns the text with HTML link
+     * if the text has a URL in it.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    public function getTextAttribute($value)
+    {
+        return preg_replace("~[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]~", "<a href=\"\\0\" target=\"_blank\">\\0</a>", $value);
+    }
+
+    /**
      * Finds the answer owner and then allows access through the Answer model.
      *
      * @return User

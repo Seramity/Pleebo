@@ -20,7 +20,7 @@
                 {% endif %}
                 <div>{{ question.text }}</div>
                 <div class="m-2 text-muted">
-                    {{ question.answer.text }}
+                    {{ question.answer.text | raw }}
                     {% if question.answer.uploaded_image %}<img class="answer-image" src="{{ base_url() }}/assets/uploads/answers/{{ question.answer.uploaded_image }}">{% endif %}
                 </div>
                 <small class="text-muted" title="{{ question.timestamp('answered_at') }}">{{ question.readableTime('answered_at') }}</small>
