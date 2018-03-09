@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.0-alpha] - XXXX-XX-XX
+### Added
+### Updated
+### Removed
+
 ## [1.1.0-alpha] - 2017-11-08
 ### Added
 - Question favorites

@@ -1,19 +1,19 @@
-# Questreme
+# Pleebo
 #### Social Q&A made simple
 
-Questreme is a Q&A (questions and answers) platform that allows you to interact with your friends.
-With Questreme, you can ask anyone questions and get to know them better.
+Pleebo is a Q&A (questions and answers) platform that allows you to interact with your friends.
+With Pleebo, you can ask anyone questions and get to know them better.
 
 ## Installation
-1. Create a new project: `composer create-project seramity/questreme PATH -s alpha`
+1. Create a new project: `composer create-project seramity/Pleebo PATH -s alpha`
 2. Add credentials in .env
 3. Install database: `./vendor/bin/phinx migrate`
 
 ## Contributing
-If you would like to contribute to Questreme's development, we would appreciate anything from simple bug fixes to implementing new features. We'll be glad to work with whatever that is proposed to us if appropriate.
+If you would like to contribute to Pleebo's development, we would appreciate anything from simple bug fixes to implementing new features. We'll be glad to work with whatever that is proposed to us if appropriate.
 
 #### Bug Fixes
-If you would like to report a bug in Questreme, please create a new issue (if the issue doesn't already exist) and clearly explain the following:
+If you would like to report a bug in Pleebo, please create a new issue (if the issue doesn't already exist) and clearly explain the following:
 - Description of the bug
 - How and where it happens
 - How to reproduce the bug
@@ -28,4 +28,4 @@ To get started on submitting a new feature, please do the following:
 5. Create pull request
 
 ## TODO
-Questreme's development can be followed at our official [Trello board](https://trello.com/b/V7Suhdbo).
+Pleebo's development can be followed at our official [Trello board](https://trello.com/b/V7Suhdbo).

@@ -46,14 +46,14 @@
 
 body {
     background-color: #e2e1e1; /* #2A363B */
-    font-family: 'Lato', 'Open Sans', sans-serif;
+    font-family: 'Raleway', 'Open Sans', sans-serif;
     font-weight: 400;
     color: #5a676d;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Fantasque Sans Mono', monospace;
-    font-weight: 500;
+    font-family: 'Nunito', monospace;
+    font-weight: 600;
     color: inherit;
 }
 a {color: #ff6161;text-decoration:none !important;}
@@ -72,7 +72,7 @@ input, textarea, select {
     color: #97aec2;
     border: 2px solid #d6e2ec;
     border-radius: 5px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-weight: 400;
     outline: 0;
     transition: background 0.2s ease, border 0.2s ease;-webkit-transition: background 0.2s ease, border 0.2s ease;-moz-transition: background 0.2s ease, border 0.2s ease;-o-transition: background 0.2s ease, border 0.2s ease;
@@ -95,7 +95,7 @@ textarea.comment {height: 100px;}
 input[type="submit"] {
     background-color: #1dce79;
     color: #fff;
-    font-family: 'Lato', 'Open Sans', sans-serif;
+    font-family: 'Raleway', 'Open Sans', sans-serif;
     text-transform: uppercase;
     font-weight: bold;
     border: none;
@@ -180,7 +180,7 @@ textarea.no-resize {resize:none;}
 }
 #field_check_username, #field_check_email {display:none;}
 
-.btn {font-weight: bold;border: 2px solid;}
+.btn {font-family: 'Nunito', Arial;font-weight: bold;border: 2px solid;}
 
 .btn-primary {color: #fff;background-color: #5CB3FD;border-color: #5CB3FD;}
 .btn-primary:hover {color: #fff;background-color: #4C9EE4;border-color: #4C9EE4;}
@@ -216,15 +216,14 @@ button:disabled {background-color: #8696A4 !important;border-color: #8696A4 !imp
 }
 
 .navbar {margin: 0 0 1rem;}
-.navbar-brand {font-family: 'Fantasque Sans Mono', monospace;}
+.navbar-brand {font-family: 'Nunito', monospace; font-weight: bold;}
 .navbar-main.navbar-light .navbar-brand {
-    font-weight: bold;
     font-size: 1.5em;
     color: #ff8989;
 }
 .navbar-main.navbar-light .navbar-brand:hover {color: #ff6161;}
 .navbar-nav.main-links {margin-top: 0.4rem;}
-.navbar .nav-item a {font-family: 'Fantasque Sans Mono', monospace;font-weight: bold;font-size: 1.05em;}
+.navbar .nav-item a {font-family: 'Nunito', monospace;font-weight: bold;font-size: 1.05em;}
 .dropdown-menu .dropdown-item {color: rgba(0,0,0,.5) !important;}
 .dropdown-menu .dropdown-item:active {color: #fff !important;background-color: #ff8989 !important;}
 
@@ -348,7 +347,7 @@ ul#noty_topCenter_layout_container li {
 }
 .noty_bar .noty_message .noty_text {
     font-weight: bold;
-    font-family: 'Fantasque Sans Mono', monospace;
+    font-family: 'Nunito', monospace;
     text-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
 }
 
