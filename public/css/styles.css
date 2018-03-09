@@ -210,7 +210,7 @@ button:disabled {background-color: #8696A4 !important;border-color: #8696A4 !imp
 
 @media (min-width: 1200px) {
     .container {
-        width: 70em;
+        width: 60em;
         max-width: 100%;
     }
 }
@@ -314,6 +314,7 @@ button:disabled {background-color: #8696A4 !important;border-color: #8696A4 !imp
 }
 .card.question .card-body hr {margin: 0.3rem}
 .card.question .card-body .answer-image {display: block;max-width: 100%;}
+.card.question .card-body .question-main {padding-left: 2em;}
 
 .card.question .button {color:#9ea1a2;font-size: 1.2em;cursor:pointer;transition: all 0.5s ease;-webkit-transition: all 0.5s ease;}
 .card.question .button.reply-button:hover {color: #1DCE79;}

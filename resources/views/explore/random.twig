@@ -22,7 +22,7 @@
                             <a class="nav-link active" href="{{ path_for('explore') }}">Random</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Popular lists</a>
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Popular</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ path_for('explore.popular', {time : 'week'}) }}">This Week</a>
                                 <a class="dropdown-item" href="{{ path_for('explore.popular', {time : 'month'}) }}">This month</a>
@@ -45,17 +45,13 @@
                 </div>
             </div>
 
-            {#
-            {% if not random_lists is empty %}
-                {% for list in random_lists %}
-                    <div class="col-12 px-0">
-                        {% include 'templates/list/small_list_template.twig' %}
-                    </div>
+            {% if not random_questions is empty %}
+                {% for question in random_questions %}
+                    {% include 'templates/question/question_global.twig' %}
                 {% endfor %}
             {% else %}
-                <h5 class="test-muted">Couldn't find any lists.</h5>
+                <h5 class="test-muted">Couldn't find any questions.</h5>
             {% endif %}
-            #}
 
         </div>
 

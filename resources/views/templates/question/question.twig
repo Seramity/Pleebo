@@ -2,7 +2,7 @@
     <div class="card-body">
 
         <div class="row">
-            <div class="col-1">
+            <div class="col-lg-1">
                 {% if not question.anonymous %}
                     <a href="{{ path_for('userProfile', {user: question.sender().username}) }}">{{ question.sender().getAvatar({size : 55}) | raw }}</a>
                 {% else %}
@@ -10,7 +10,7 @@
                 {% endif %}
             </div>
 
-            <div class="col-11">
+            <div class="col-lg-11 question-main">
                 {% if not question.anonymous %}
                     <a href="{{ path_for('userProfile', {user: question.sender().username}) }}" class="font-weight-bold">{{ question.sender().username }}</a> asked...
                 {% else %}

@@ -127,6 +127,53 @@ class Question extends Model
     }
 
     /**
+     * @param string $time
+     * @param int $paginate
+     *
+     * Finds popular questions based on a provided time (week, month, etc)
+     * and returns them.
+     *
+     * @return Question
+     */
+    public function popularQuestions($time, $paginate)
+    {
+        switch($time) {
+            case 'week':
+                $timeDiff =  Carbon::now()->subWeek();
+                break;
+            case 'month':
+                $timeDiff =  Carbon::now()->subMonth();
+                break;
+            case 'year':
+                $timeDiff =  Carbon::now()->subYear();
+                break;
+            case 'all-time':
+                $timeDiff =  Carbon::now()->subYear(40); // A little trick to get all questions
+                break;
+            default:
+                $timeDiff =  Carbon::now()->subWeek();
+                break;
+        }
+
+        $questions = $this->leftJoin('question_favorites','questions.id','=','question_favorites.question_id')
+            ->selectRaw('questions.*, count(question_favorites.question_id) AS `count`')
+            ->where('questions.created_at', '>=', $timeDiff)
+            ->where('questions.created_at', '<=', Carbon::now())
+            ->groupBy('questions.id')
+            ->orderBy('count', 'desc')
+            ->simplePaginate($paginate);
+
+        // REMOVE ALL QUESTIONS THAT HAVE ZERO FAVORITES
+        foreach ($questions as $key => $question) {
+            if ($question->favorites()->count() == 0) {
+                $questions->forget($key);
+            }
+        }
+
+        return $questions;
+    }
+
+    /**
      * Checks whether a user has favorited a question and returns a boolean.
      *
      * @return boolean
@@ -192,5 +239,13 @@ class Question extends Model
      */
     public function answer() {
         return $this->hasOne('App\Models\Answer', 'question_id');
+    }
+
+    /**
+     * Creates relation with QuestionFavorite and returns the model.
+     */
+    public function favorites()
+    {
+        return $this->hasMany('App\Models\QuestionFavorite', 'question_id');
     }
 }
