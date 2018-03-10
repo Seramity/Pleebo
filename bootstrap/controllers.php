@@ -29,6 +29,9 @@ $container['ProfileSettingsController'] = function ($container) {
 $container['PictureSettingsController'] = function ($container) {
     return new \App\Controllers\Auth\Account\PictureSettingsController($container);
 };
+$container['BlockedUsersController'] = function ($container) {
+  return new \App\Controllers\Auth\Account\BlockedUsersController($container);
+};
 $container['DeleteAccountController'] = function ($container) {
     return new \App\Controllers\Auth\Account\DeleteAccountController($container);
 };
@@ -38,27 +41,10 @@ $container['DeleteAccountController'] = function ($container) {
 $container['ProfileController'] = function ($container) {
     return new \App\Controllers\User\ProfileController($container);
 };
-
-// LIST CONTROLLERS
-$container['ListController'] = function ($container) {
-    return new \App\Controllers\Lists\ListController($container);
-};
-$container['NewListController'] = function ($container) {
-    return new \App\Controllers\Lists\NewListController($container);
-};
-$container['EditListController'] = function ($container) {
-    return new \App\Controllers\Lists\EditListController($container);
-};
-$container['DeleteListController'] = function ($container) {
-    return new \App\Controllers\Lists\DeleteListController($container);
-};
-$container['FavoriteListController'] = function ($container) {
-    return new \App\Controllers\Lists\FavoriteListController($container);
+$container['BlockUserController'] = function ($container) {
+    return new \App\Controllers\User\BlockUserController($container);
 };
 
-$container['CommentController'] = function ($container) {
-    return new \App\Controllers\Comment\CommentController($container);
-};
 
 // QUESTION CONTROLLERS
 $container['NewQuestionController'] = function ($container) {

@@ -6,7 +6,7 @@
             <h3>My Account</h3>
             <hr>
 
-            <ul class="nav flex-column">
+            <ul class="nav flex-column" id="settingsNav">
                 <h6 class="text-muted">Profile</h6>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path_for('account.profile') }}">Profile Settings</a>
@@ -17,16 +17,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Privacy Settings</a>
                 </li>
-            </ul>
 
-            <ul class="nav flex-column">
                 <h6 class="text-muted">Account</h6>
-
                 <li class="nav-item">
                     <a class="nav-link" href="#">Account Settings</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path_for('account.password') }}">Change Password</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path_for('account.blocked') }}">Blocked Users</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path_for('account.delete') }}">Delete Account</a>

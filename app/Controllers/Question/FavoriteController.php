@@ -5,6 +5,7 @@ namespace App\Controllers\Question;
 use App\Controllers\Controller;
 use App\Models\Question;
 use App\Models\QuestionFavorite;
+use App\Models\User;
 
 class FavoriteController extends Controller
 {
@@ -26,6 +27,15 @@ class FavoriteController extends Controller
                 "errorType" => "nodata",
                 "code" => 10,
                 "msg" => "That question does not exist"
+            ));
+        }
+        $user = User::where('id', $question->receiver_id)->first();
+        if ($user->hasBlocked($this->auth->user()->id)) {
+            return json_encode(array(
+                "result" => "error",
+                "errorType" => "blocked",
+                "code" => 13,
+                "msg" => "That user has you blocked"
             ));
         }
 

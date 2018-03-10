@@ -1,0 +1,5 @@
+<div class="row mb-3">
+    <div class="col-lg-1">{{ blockedUser.getAvatar({size : 55}) | raw }}</div>
+    <div class="col-lg-9"><h5>{{ blockedUser.username }}</h5></div>
+    <div class="col-lg-2"><button class="btn btn-outline-warning" onclick="confirmUnblockUser({{ blockedUser.id }})">Unblock</button></div>
+</div>

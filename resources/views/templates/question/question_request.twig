@@ -28,14 +28,21 @@
         <hr>
 
         <div class="row text-center">
-            <div class="col-4">
+            <div class="col">
                 <span class="icon ion-reply button reply-button" title="Reply" data-toggle="modal" data-target="#replyModal" data-qid="{{ question.id }}" data-qtext="{{ question.text }}"></span>
             </div>
-            <div class="col-4">
+            <div class="col">
                 <span class="icon ion-trash-b button delete-button" title="Delete" onclick="confirmDeleteReceivedQuestion({{ question.id }});"></span>
             </div>
-            <div class="col-4">
-                <span class="icon ion-android-cancel button block-button" title="Block user"></span>
+            <div class="col">
+                <div class="dropdown">
+                    <span class="icon ion-android-more-horizontal button misc-button" title="Menu" id="question_dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+
+                    <div class="dropdown-menu" aria-labelledby="question_dropdown">
+                        <button class="dropdown-item" type="button">Report</button>
+                        {% if auth.check and question.sender().id != auth.user.id %}<button class="dropdown-item" type="button" onclick="confirmBlockUser({{ question.id }}, true);">Block user</button>{% endif %}
+                    </div>
+                </div>
             </div>
         </div>
 

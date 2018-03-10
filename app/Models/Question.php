@@ -173,6 +173,47 @@ class Question extends Model
         return $questions;
     }
 
+    public static function removeBlocked($questions)
+    {
+        $auth = Auth::user();
+        if (!$auth)
+            return $questions;
+
+        // Users that the auth user has blocked
+        $userBlocks = UserBlock::where('user_id', $auth->id)->get();
+        // Users that the auth user has been blocked by
+        $blockedBy = UserBlock::where('blocked_id', $auth->id)->get();
+
+        $blockedIds = array();
+        foreach ($userBlocks as $userBlock) {
+            $blockedIds[] = $userBlock->blocked_id;
+        }
+        $blockedByIds = array();
+        foreach ($blockedBy as $userBlock) {
+            $blockedByIds[] = $userBlock->user_id;
+        }
+
+        $blockedUsers = User::whereIn('id', $blockedIds)->get();
+        $blockedByUsers = User::whereIn('id', $blockedByIds)->get();
+
+        // REMOVE ALL QUESTIONS FROM BLOCKED USERS
+        foreach ($questions as $key => $question) {
+            foreach ($blockedUsers as $blockedUser) {
+                if ($question->sender()->id == $blockedUser->id || $question->receiver()->id == $blockedUser->id) {
+                    $questions->forget($key);
+                }
+            }
+
+            foreach ($blockedByUsers as $blockedByUser) {
+                if ($question->sender()->id == $blockedByUser->id || $question->receiver()->id == $blockedByUser->id && $blockedByUser->id != $auth->id) {
+                    $questions->forget($key);
+                }
+            }
+        }
+
+        return $questions;
+    }
+
     /**
      * Checks whether a user has favorited a question and returns a boolean.
      *

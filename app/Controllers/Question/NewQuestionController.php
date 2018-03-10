@@ -14,6 +14,11 @@ class NewQuestionController extends Controller
         $question = new Question();
         $user_receiver = User::where('id', $request->getParam('uid'))->first();
 
+        if ($user_receiver->hasBlocked($this->auth->user()->id)) {
+            $this->flash->addMessage('global_error', 'You cannot send this user a question');
+            return $response->withRedirect($this->router->pathFor('userProfile', ['user' => $user_receiver->username]));
+        }
+
         $validation = $this->validator->validate($request, [
             'question' => v::notEmpty()->length(4, $question->MAX_TEXT_CHAR)
         ]);

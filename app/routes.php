@@ -13,8 +13,8 @@ $app->get('/explore/popular[/{time}[/{page}]]', 'ExploreController:popular')->se
 
 
 // PROFILE ROUTES
-$app->get('/@{user}','ProfileController:index')->setName('userProfile');
-$app->get('/@{user}/favorites[/{page}]', 'ProfileController:favorites')->setName('userProfile.favorites'); // [{ARG}] = optional
+$app->get('/~{user}','ProfileController:index')->setName('userProfile');
+$app->get('/~{user}/favorites[/{page}]', 'ProfileController:favorites')->setName('userProfile.favorites'); // [{ARG}] = optional
 
 // ABOUT PAGES
 $app->get('/a/about', 'AboutController:index')->setName('page.about');
@@ -37,23 +37,20 @@ $app->group('', function () use ($app) {
     $app->post('/account/picture/change', 'PictureSettingsController:changePicture')->setName('account.picture.change');
     $app->get('/account/password', 'ChangePasswordController:getChangePassword')->setName('account.password');
     $app->post('/account/password', 'ChangePasswordController:postChangePassword');
+    $app->get('/account/blocked', 'BlockedUsersController:getBlockedUsers')->setName('account.blocked');
     $app->get('/account/delete', 'DeleteAccountController:getDeleteAccount')->setName('account.delete');
     $app->post('/account/delete', 'DeleteAccountController:postDeleteAccount');
+
+    // USER MANAGEMENT ROUTES
+    $app->get('/user/block/u/{uid}', 'BlockUserController:getBlockUser')->setName('user.block');
+    $app->get('/user/block/q/{qid}', 'BlockUserController:getBlockUserByQuestion')->setName('user.block.question');
+    $app->get('/user/unblock/{uid}', 'BlockUserController:getUnblockUser')->setName('user.unblock');
 
     // INBOX ROUTES
     $app->get('/inbox', 'InboxController:index')->setName('inbox');
     $app->get('/inbox/sent', 'InboxController:getSentQuestions')->setName('inbox.sent');
     $app->post('/inbox/reply', 'InboxController:postReplyQuestion')->setName('inbox.reply');
     $app->get('/inbox/delete/{id}', 'InboxController:getDeleteQuestion')->setName('inbox.delete');
-
-    // LIST ROUTES
-    $app->get('/list/new', 'NewListController:getNewList')->setName('list.new');
-    $app->post('/list/new', 'NewListController:postNewList');
-    $app->get('/list/edit/{id}', 'EditListController:getEditList')->setName('list.edit');
-    $app->post('/list/edit/{id}', 'EditListController:postEditList');
-    $app->get('/list/delete/{id}', 'DeleteListController:getDeleteList')->setName('list.delete');
-    $app->get('/list/favorite/{id}', 'FavoriteListController:createFavorite')->setName('list.favorite');
-    $app->get('/list/unfavorite/{id}', 'FavoriteListController:deleteFavorite')->setName('list.unfavorite');
 
     // COMMENT ROUTES
     $app->post('/comment/list/{id}', 'CommentController:createListComment')->setName('comment.list');

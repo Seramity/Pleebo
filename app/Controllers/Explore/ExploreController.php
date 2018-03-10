@@ -17,6 +17,9 @@ class ExploreController extends Controller
             ->take(5)
             ->get();
 
+        // filter blocked
+        $new_questions = Question::removeBlocked($new_questions);
+
         $new_users = User::where('created_at', '>=', Carbon::now()->subDay())
             ->where('created_at', '<=', Carbon::now())
             ->orderBy('created_at', 'desc')
@@ -33,6 +36,9 @@ class ExploreController extends Controller
         $random_questions = Question::inRandomOrder()
             ->take(5)
             ->get();
+
+        // filter blocked
+        $random_questions = Question::removeBlocked($random_questions);
 
         $random_users = User::inRandomOrder()
             ->take(5)
@@ -54,6 +60,9 @@ class ExploreController extends Controller
 
         $questions = new Question;
         $questions = $questions->popularQuestions($time, 12);
+
+        // filter blocked
+        $questions = Question::removeBlocked($questions);
 
         $data = ['questions' => $questions, 'time' => $time];
 

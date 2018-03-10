@@ -49,6 +49,11 @@
                     {% if auth.user.id == user.id %}
                         <a href="{{ path_for('account.profile') }}" class="btn btn-outline-primary">Edit Profile</a>
                     {% endif %}
+
+                    {% if auth.user.id != user.id %}
+                        <hr />
+                        <a href="#" onclick="confirmBlockUser({{ user.id }}, false)"><span class="icon ion-android-cancel"></span> Block user</a>
+                    {% endif %}
                 </div>
             </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\UserBlock;
 use App\Helpers\Image;
 use Illuminate\Database\Eloquent\Model;
 use App\Auth\Auth;
@@ -188,7 +189,8 @@ class User extends Model
      */
     public function countAnsweredQuestions()
     {
-        return Question::where('receiver_id', $this->id)->where('answered', true)->count();
+        $questions = Question::where('receiver_id', $this->id)->where('answered', true)->get();
+        return Question::removeBlocked($questions)->count();
     }
 
     /**
@@ -198,7 +200,8 @@ class User extends Model
      */
     public function countQuestionFavorites()
     {
-        return QuestionFavorite::where('user_id', $this->id)->count();
+        $favorites = new QuestionFavorite();
+        return $favorites->countFavorites($this);
     }
 
 
@@ -248,6 +251,20 @@ class User extends Model
     public function joinedDate()
     {
         return Carbon::createFromTimeStamp(strtotime($this->created_at))->diffForHumans();
+    }
+
+    /**
+     * Checks if a user block exist and return a boolean
+     *
+     * @param int $blocked_id
+     *
+     * @return bool
+     */
+    public function hasBlocked($blocked_id)
+    {
+        $block = UserBlock::where('user_id', $this->id)->where('blocked_id', $blocked_id)->first();
+
+        return ($block) ? true : false;
     }
 
     /**

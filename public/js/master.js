@@ -18,16 +18,16 @@ function notification(msg, type) {
 }
 
 //COMFIRM BOX
-var confirmBox = function(message, url) {
+var confirmBox = function(message, confirmTitle, url, onClick) {
 	$('.modal').remove();
 
 
     $('body').prepend('' +
-        '<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="false">' +
+        '<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalTitle" aria-hidden="false">' +
             '<div class="modal-dialog" role="document">' +
                 '<div class="modal-content">' +
                     '<div class="modal-header">' +
-                        '<h5 class="modal-title" id="deleteModalTitle">Delete</h5>' +
+                        '<h5 class="modal-title" id="confirmModalTitle">'+ confirmTitle +'</h5>' +
                         '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
                     '</div>' +
                     '<div class="modal-body">' +
@@ -35,17 +35,27 @@ var confirmBox = function(message, url) {
                     '</div>' +
                     '<div class="modal-footer">' +
                         '<a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>' +
-                        '<a href="'+ url +'" class="btn btn-danger">Delete</a>' +
+                        '<a href="'+ url +'" class="btn btn-danger" '+ onClick +'>'+ confirmTitle +'</a>' +
                     '</div>' +
                 '</div>' +
             '</div>' +
         '</div>');
 
-    $('#deleteModal').modal('show')
+    $('#confirmModal').modal('show');
 }
 
 var confirmDeleteReceivedQuestion = function(id) {
-    confirmBox('Are you sure you want to delete this question?',''+BASEURL+'/inbox/delete/'+id+'');
+    confirmBox('Are you sure you want to delete this question?', 'Delete', BASEURL+'/inbox/delete/'+id+'', null);
+}
+var confirmBlockUser = function(id, q) {
+    if (q)
+        var onClick = 'onClick="blockUser('+id+', true)"';
+    else
+        var onClick = 'onClick="blockUser('+id+', false)"';
+    confirmBox('Are you sure you want to block this user?', 'Block', '#', onClick);
+}
+var confirmUnblockUser = function (id) {
+    confirmBox('Are you sure you want to unblock this user?', 'Unblock', '#', 'onClick="unblockUser('+id+')"');
 }
 
 /* AJAX FUNCTIONS */
@@ -88,4 +98,53 @@ function deleteFavorite(qid) {
 			console.log("deleteFavorite Error");
 		}
 	});
+}
+
+function blockUser(id, q) {
+    if (q)
+        var tag = 'q';
+    else
+        var tag = 'u';
+
+    $.ajax({
+        url: BASEURL + "/user/block/"+tag+"/" + id,
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            $('#confirmModal').modal('hide');
+
+            if (data.errorType) {
+                notification(data.msg, "error");
+            } else {
+                notification(data.msg, "success");
+                if (!q) location.reload();
+            }
+        },
+        error: function () {
+            console.log("blockUser Error");
+        }
+    });
+}
+
+function unblockUser(id) {
+    $.ajax({
+        url: BASEURL + "/user/unblock/" + id,
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            $('#confirmModal').modal('hide');
+            
+            if (data.errorType) {
+                notification(data.msg, "error");
+            } else {
+                notification(data.msg, "success");
+                location.reload();
+            }
+        },
+        error: function () {
+            console.log("blockUser Error");
+        }
+    });
 }

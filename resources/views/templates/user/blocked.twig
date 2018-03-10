@@ -1,0 +1,27 @@
+{% extends 'templates/app.twig' %}
+
+{% block pageTitle %}Blocked{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col-md-6 mx-auto text-center">
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Blocked</h3>
+                </div>
+                <div class="card-body">
+                    <p>{{ username }} has blocked you from following them or viewing their content.</p>
+
+                    <hr>
+                    <a href="javascript:history.back(1)">Go Back</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
