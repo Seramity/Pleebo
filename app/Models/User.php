@@ -179,7 +179,7 @@ class User extends Model
      */
     public function countReceivedQuestions()
     {
-        return Question::where('receiver_id', $this->id)->where('answered', NULL)->count();
+        return Question::removeBlocked(Question::where('receiver_id', $this->id)->where('answered', NULL)->get())->count();
     }
 
     /**

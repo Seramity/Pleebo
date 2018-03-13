@@ -67,10 +67,10 @@ class Question extends Model
      */
     public function getReceivedQuestions($paginate)
     {
-        return $this->where('receiver_id', Auth::user()->id)
+        return Question::removeBlocked($this->where('receiver_id', Auth::user()->id)
             ->where('answered', NULL)
             ->orderBy('created_at', 'desc')
-            ->paginate($paginate);
+            ->paginate($paginate));
     }
 
     /**
@@ -173,6 +173,12 @@ class Question extends Model
         return $questions;
     }
 
+    /**
+     * Removes any questions from users that are blocked by the auth user, or questions from users that have blocked the auth user.
+     *
+     * @param Question $questions
+     * @return Question
+     */
     public static function removeBlocked($questions)
     {
         $auth = Auth::user();
